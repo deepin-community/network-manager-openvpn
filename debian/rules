@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--libexecdir=/usr/lib/NetworkManager \
+		--without-libnm-glib \
+		--disable-static
+
+override_dh_install:
+	find debian/tmp -name '*.la' -print -delete
+	dh_install
+
+# Tests are currently not safe to be run in parallel
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839849
+override_dh_auto_test:
+	dh_auto_test --no-parallel
