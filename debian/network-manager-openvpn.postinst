@@ -9,8 +9,10 @@ if [ "$1" = configure ]; then
             --gecos "NetworkManager OpenVPN" \
             --group nm-openvpn
 
-    # create directory used for running the openvpn daemon in a chroot
-    install -o nm-openvpn -g nm-openvpn -d /var/lib/openvpn/chroot/tmp
+    # remove existing tmp directory to prevent nm-openvpn to run in a chroot
+    if [ -d /var/lib/openvpn/chroot/tmp ]; then
+        rmdir --ignore-fail-on-non-empty /var/lib/openvpn/chroot/tmp
+    fi
 fi
 
 #DEBHELPER#

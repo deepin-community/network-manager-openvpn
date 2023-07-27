@@ -29,6 +29,7 @@
 #define NM_DBUS_INTERFACE_OPENVPN  "org.freedesktop.NetworkManager.openvpn"
 #define NM_DBUS_PATH_OPENVPN       "/org/freedesktop/NetworkManager/openvpn"
 
+#define NM_OPENVPN_KEY_ALLOW_COMPRESSION         "allow-compression"
 #define NM_OPENVPN_KEY_ALLOW_PULL_FQDN           "allow-pull-fqdn"
 #define NM_OPENVPN_KEY_AUTH                      "auth"
 #define NM_OPENVPN_KEY_CA                        "ca"
@@ -40,6 +41,7 @@
 #define NM_OPENVPN_KEY_CONNECT_TIMEOUT           "connect-timeout"
 #define NM_OPENVPN_KEY_CRL_VERIFY_FILE           "crl-verify-file"
 #define NM_OPENVPN_KEY_CRL_VERIFY_DIR            "crl-verify-dir"
+#define NM_OPENVPN_KEY_DATA_CIPHERS              "data-ciphers"
 #define NM_OPENVPN_KEY_DEV                       "dev"
 #define NM_OPENVPN_KEY_DEV_TYPE                  "dev-type"
 #define NM_OPENVPN_KEY_EXTRA_CERTS               "extra-certs"
@@ -80,6 +82,7 @@
 #define NM_OPENVPN_KEY_TLS_CRYPT_V2              "tls-crypt-v2"
 #define NM_OPENVPN_KEY_TLS_REMOTE                "tls-remote"
 #define NM_OPENVPN_KEY_TLS_VERSION_MIN           "tls-version-min"
+#define NM_OPENVPN_KEY_TLS_VERSION_MIN_OR_HIGHEST "tls-version-min-or-highest"
 #define NM_OPENVPN_KEY_TLS_VERSION_MAX           "tls-version-max"
 #define NM_OPENVPN_KEY_TUNNEL_MTU                "tunnel-mtu"
 #define NM_OPENVPN_KEY_TUN_IPV6                  "tun-ipv6"

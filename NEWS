@@ -1,4 +1,46 @@
 =======================================================
+NetworkManager-openvpn-1.10.2
+Overview of changes since NetworkManager-openvpn-1.10.0
+=======================================================
+
+* IP condfiguration is no longer required in TAP mode.
+* Fix initialization of secret flags.
+* Add support for DOMAIN-SEARCH option.
+* Set data-ciphers option with chosen cipher.
+* Update Brazilian Portuguese, Croatian, Danish, Georgian, Polish, Serbian,
+  Slovenian, Swedish, Turkish and Ukrainian translations.
+
+=======================================================
+NetworkManager-openvpn-1.10.0
+Overview of changes since NetworkManager-openvpn-1.8.18
+=======================================================
+
+This is a new stable release of NetworkManager-openvpn.  Notable changes include:
+
+* Add support for "allow-compression" parameter.
+* Fix a regression in preserving the "tls-auth" settings.
+* Add support for "tls-min" and "tls-cipher" parameters.
+* Include the new gnome-control-center name in the AppData file.
+* Drop libnm-glib support, nobody is likely using it anymore.
+* Fix importing profiles with a PKCS#12 CA.
+* Make sure the plugin object links with glib.
+* Dropped dependency on intltool.
+* Updated Basque, Brazilian Portuguese, Chinese (China), Croatian, Czech,
+  Danish, Dutch, Georgian, Indonesian, Polish, Serbian, Spanish, Swedish,
+  Turkish and Ukrainian translations.
+
+=======================================================
+NetworkManager-openvpn-1.8.18
+Overview of changes since NetworkManager-openvpn-1.8.16
+=======================================================
+
+This is a new stable release of NetworkManager-openvpn.  Notable changes include:
+
+* Gtk4 version of the editor plugin is now available (for use with Control
+  Center of GNOME 42 or later).
+* Update Catalan, Croatian, Czech, Hebrew and Slovenian translations.
+
+=======================================================
 NetworkManager-openvpn-1.8.16
 Overview of changes since NetworkManager-openvpn-1.8.14
 =======================================================

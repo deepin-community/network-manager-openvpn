@@ -1,3 +1,4 @@
 usr/lib/*/NetworkManager/libnm-vpn-plugin-openvpn-editor.so
+usr/lib/*/NetworkManager/libnm-gtk4-vpn-plugin-openvpn-editor.so
 usr/lib/NetworkManager/nm-openvpn-auth-dialog
 usr/share/metainfo/network-manager-openvpn.metainfo.xml

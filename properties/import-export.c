@@ -999,6 +999,19 @@ do_import (const char *path, const char *contents, gsize contents_len, GError **
 			continue;
 		}
 
+		if (NM_IN_STRSET (params[0], NMV_OVPN_TAG_ALLOW_COMPRESSION)) {
+			if (!args_params_check_nargs_minmax (params, 1, 1, &line_error))
+				goto handle_line_error;
+
+			if (!NM_IN_STRSET (params[1], "yes", "no", "asym")) {
+				line_error = g_strdup_printf (_("allow-compression: invalid argument"));
+				goto handle_line_error;
+			}
+
+			setting_vpn_add_data_item (s_vpn, NM_OPENVPN_KEY_ALLOW_COMPRESSION, params[1]);
+			continue;
+		}
+
 		if (NM_IN_STRSET (params[0], NMV_OVPN_TAG_COMP_LZO)) {
 			const char *v;
 
@@ -1244,11 +1257,19 @@ do_import (const char *path, const char *contents, gsize contents_len, GError **
 		}
 
 		if (NM_IN_STRSET (params[0], NMV_OVPN_TAG_TLS_VERSION_MIN)) {
-			if (!args_params_check_nargs_n (params, 1, &line_error))
+			if (!args_params_check_nargs_minmax (params, 1, 2, &line_error))
 				goto handle_line_error;
 			if (!args_params_check_arg_utf8 (params, 1, NULL, &line_error))
 				goto handle_line_error;
 			setting_vpn_add_data_item (s_vpn, NM_OPENVPN_KEY_TLS_VERSION_MIN, params[1]);
+			if (params[2]) {
+				if (nm_streq (params[2], "or-highest")) {
+					setting_vpn_add_data_item (s_vpn, NM_OPENVPN_KEY_TLS_VERSION_MIN_OR_HIGHEST, "yes");
+				} else {
+					line_error = g_strdup_printf (_("invalid keyword “%s” in tls-version-min"), params[2]);
+					goto handle_line_error;
+				}
+			}
 			continue;
 		}
 
@@ -1297,10 +1318,8 @@ do_import (const char *path, const char *contents, gsize contents_len, GError **
 
 			if (NM_IN_STRSET (params[0], NMV_OVPN_TAG_PKCS12)) {
 				 /* OpenVPN allows --pkcs12 with external (PEM) --ca. Don't overwrite it with the PKCS#12 file. */
-				if (!have_ca) {
+				if (!have_ca)
 					setting_vpn_add_data_item_path (s_vpn, NM_OPENVPN_KEY_CA, file);
-					have_ca = TRUE;
-				}
 				setting_vpn_add_data_item_path (s_vpn, NM_OPENVPN_KEY_CERT, file);
 				setting_vpn_add_data_item_path (s_vpn, NM_OPENVPN_KEY_KEY, file);
 				have_pkcs12 = TRUE;
@@ -1341,6 +1360,15 @@ do_import (const char *path, const char *contents, gsize contents_len, GError **
 			if (!args_params_check_arg_utf8 (params, 1, NULL, &line_error))
 				goto handle_line_error;
 			setting_vpn_add_data_item (s_vpn, NM_OPENVPN_KEY_CIPHER, params[1]);
+			continue;
+		}
+
+		if (NM_IN_STRSET (params[0], NMV_OVPN_TAG_DATA_CIPHERS)) {
+			if (!args_params_check_nargs_n (params, 1, &line_error))
+				goto handle_line_error;
+			if (!args_params_check_arg_utf8 (params, 1, NULL, &line_error))
+				goto handle_line_error;
+			setting_vpn_add_data_item (s_vpn, NM_OPENVPN_KEY_DATA_CIPHERS, params[1]);
 			continue;
 		}
 
@@ -1455,6 +1483,7 @@ do_import (const char *path, const char *contents, gsize contents_len, GError **
 			in_addr_t gateway = 0;
 			guint32 prefix = 32;
 			gint64 metric = -1;
+			NMIPRoute *route;
 
 			if (!args_params_check_nargs_minmax (params, 1, 4, &line_error))
 				goto handle_line_error;
@@ -1490,26 +1519,9 @@ do_import (const char *path, const char *contents, gsize contents_len, GError **
 				continue;
 			}
 
-			{
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-				NMIP4Route *route;
-
-				route = nm_ip4_route_new ();
-				nm_ip4_route_set_dest (route, network);
-				nm_ip4_route_set_prefix (route, prefix);
-				nm_ip4_route_set_next_hop (route, gateway);
-				if (metric >= 0)
-					nm_ip4_route_set_metric (route, metric);
-				nm_setting_ip4_config_add_route (s_ip4, route);
-				nm_ip4_route_unref (route);
-#else
-				NMIPRoute *route;
-
-				route = nm_ip_route_new_binary (AF_INET, &network, prefix, params[3] ? &gateway : NULL, metric, NULL);
-				nm_setting_ip_config_add_route (s_ip4, route);
-				nm_ip_route_unref (route);
-#endif
-			}
+			route = nm_ip_route_new_binary (AF_INET, &network, prefix, params[3] ? &gateway : NULL, metric, NULL);
+			nm_setting_ip_config_add_route (s_ip4, route);
+			nm_ip_route_unref (route);
 		}
 
 		if (params[0][0] == '<' && params[0][strlen (params[0]) - 1] == '>') {
@@ -2103,22 +2115,29 @@ do_export_create (NMConnection *connection, const char *path, GError **error)
 
 	args_write_line_setting_value (f, NMV_OVPN_TAG_CIPHER, s_vpn, NM_OPENVPN_KEY_CIPHER);
 
+	args_write_line_setting_value (f, NMV_OVPN_TAG_DATA_CIPHERS, s_vpn, NM_OPENVPN_KEY_DATA_CIPHERS);
+
 	args_write_line_setting_value (f, NMV_OVPN_TAG_TLS_CIPHER, s_vpn, NM_OPENVPN_KEY_TLS_CIPHER);
 
 	args_write_line_setting_value_int (f, NMV_OVPN_TAG_KEYSIZE, s_vpn, NM_OPENVPN_KEY_KEYSIZE);
 
-	value = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_COMP_LZO);
-	if (value) {
-		if (nm_streq (value, "no-by-default"))
-			value = "no";
-		args_write_line (f, NMV_OVPN_TAG_COMP_LZO, value);
-	}
+	args_write_line_setting_value (f, NMV_OVPN_TAG_ALLOW_COMPRESSION, s_vpn, NM_OPENVPN_KEY_ALLOW_COMPRESSION);
 
-	value = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_COMPRESS);
-	if (nm_streq0 (value, "yes"))
-		args_write_line (f, NMV_OVPN_TAG_COMPRESS);
-	else if (value)
-		args_write_line_setting_value (f, NMV_OVPN_TAG_COMPRESS, s_vpn, NM_OPENVPN_KEY_COMPRESS);
+	value = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_ALLOW_COMPRESSION);
+	if (!nm_streq0 (value, "no")) {
+		value = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_COMP_LZO);
+		if (value) {
+			if (nm_streq (value, "no-by-default"))
+				value = "no";
+			args_write_line (f, NMV_OVPN_TAG_COMP_LZO, value);
+		}
+
+		value = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_COMPRESS);
+		if (nm_streq0 (value, "yes"))
+			args_write_line (f, NMV_OVPN_TAG_COMPRESS);
+		else if (value)
+			args_write_line_setting_value (f, NMV_OVPN_TAG_COMPRESS, s_vpn, NM_OPENVPN_KEY_COMPRESS);
+	}
 
 	if (nm_streq0 (nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_FLOAT), "yes"))
 		args_write_line (f, NMV_OVPN_TAG_FLOAT);
@@ -2231,8 +2250,12 @@ do_export_create (NMConnection *connection, const char *path, GError **error)
 		}
 
 		key = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_TLS_VERSION_MIN);
-		if (nmovpn_arg_is_set (key))
-			args_write_line (f, NMV_OVPN_TAG_TLS_VERSION_MIN, key);
+		if (nmovpn_arg_is_set (key)) {
+			const char *or_highest = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_TLS_VERSION_MIN_OR_HIGHEST);
+
+			args_write_line (f, NMV_OVPN_TAG_TLS_VERSION_MIN, key,
+			                 nm_streq0 (or_highest, "yes") ? "or-highest" : NULL);
+		}
 
 		key = nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_TLS_VERSION_MAX);
 		if (nmovpn_arg_is_set (key))
@@ -2302,11 +2325,7 @@ do_export_create (NMConnection *connection, const char *path, GError **error)
 
 	s_ip4 = nm_connection_get_setting_ip4_config (connection);
 	if (s_ip4) {
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-		num = nm_setting_ip4_config_get_num_routes (s_ip4);
-#else
 		num = nm_setting_ip_config_get_num_routes (s_ip4);
-#endif
 		for (i = 0; i < num; i++) {
 			char netmask_str[INET_ADDRSTRLEN] = { 0 };
 			const char *next_hop_str, *dest_str;
@@ -2314,31 +2333,13 @@ do_export_create (NMConnection *connection, const char *path, GError **error)
 			guint prefix;
 			guint64 metric;
 			char metric_buf[50];
+			NMIPRoute *route;
 
-#if ((NETWORKMANAGER_COMPILATION) & NM_NETWORKMANAGER_COMPILATION_WITH_LIBNM_UTIL)
-			char next_hop_str_buf[INET_ADDRSTRLEN] = { 0 };
-			char dest_str_buf[INET_ADDRSTRLEN] = { 0 };
-			in_addr_t dest, next_hop;
-			NMIP4Route *route = nm_setting_ip4_config_get_route (s_ip4, i);
-
-			dest = nm_ip4_route_get_dest (route);
-			inet_ntop (AF_INET, (const void *) &dest, dest_str_buf, sizeof (dest_str_buf));
-			dest_str = dest_str_buf;
-
-			next_hop = nm_ip4_route_get_next_hop (route);
-			inet_ntop (AF_INET, (const void *) &next_hop, next_hop_str_buf, sizeof (next_hop_str_buf));
-			next_hop_str = next_hop_str_buf;
-
-			prefix = nm_ip4_route_get_prefix (route);
-			metric = nm_ip4_route_get_metric (route);
-#else
-			NMIPRoute *route = nm_setting_ip_config_get_route (s_ip4, i);
-
+			route = nm_setting_ip_config_get_route (s_ip4, i);
 			dest_str = nm_ip_route_get_dest (route);
 			next_hop_str = nm_ip_route_get_next_hop (route) ? : "0.0.0.0",
 			prefix = nm_ip_route_get_prefix (route);
 			metric = nm_ip_route_get_metric (route);
-#endif
 			netmask = nm_utils_ip4_prefix_to_netmask (prefix);
 			inet_ntop (AF_INET, (const void *) &netmask, netmask_str, sizeof (netmask_str));
 
