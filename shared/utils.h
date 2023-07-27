@@ -23,6 +23,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#define NMV_OVPN_TAG_ALLOW_COMPRESSION      "allow-compression"
 #define NMV_OVPN_TAG_ALLOW_PULL_FQDN        "allow-pull-fqdn"
 #define NMV_OVPN_TAG_AUTH                   "auth"
 #define NMV_OVPN_TAG_AUTH_NOCACHE           "auth-nocache"
@@ -36,6 +37,7 @@
 #define NMV_OVPN_TAG_COMPRESS               "compress"
 #define NMV_OVPN_TAG_CONNECT_TIMEOUT        "connect-timeout"
 #define NMV_OVPN_TAG_CRL_VERIFY             "crl-verify"
+#define NMV_OVPN_TAG_DATA_CIPHERS           "data-ciphers"
 #define NMV_OVPN_TAG_DEV                    "dev"
 #define NMV_OVPN_TAG_DEV_TYPE               "dev-type"
 #define NMV_OVPN_TAG_EXTRA_CERTS            "extra-certs"
@@ -99,6 +101,12 @@ typedef enum {
 	NMOVPN_COMP_LEGACY_LZO_ADAPTIVE,  /* "--comp-lzo [adaptive]" */
 } NMOvpnComp;
 
+typedef enum {
+	NMOVPN_ALLOW_COMPRESSION_NO,   /* "--allow-compression no" */
+	NMOVPN_ALLOW_COMPRESSION_ASYM, /* "--allow-compression asym" */
+	NMOVPN_ALLOW_COMPRESSION_YES,  /* "--allow-compression yes" */
+} NMOvpnAllowCompression;
+
 gboolean is_pkcs12 (const char *filepath);
 
 gboolean is_encrypted (const char *filename);
@@ -127,10 +135,40 @@ nmovpn_arg_is_set (const char *value)
 	return (value && value[0]) ? value : NULL;
 }
 
+NMOvpnAllowCompression nmovpn_allow_compression_from_options (const char              *allow_compression);
+void                   nmovpn_allow_compression_to_options   (NMOvpnAllowCompression   allow_compression,
+                                                              const char             **opt_allow_compression);
+
 NMOvpnComp nmovpn_compression_from_options (const char *comp_lzo,
                                             const char *compress);
 void nmovpn_compression_to_options (NMOvpnComp comp,
                                     const char **comp_lzo,
                                     const char **compress);
+
+/*****************************************************************************/
+
+#define NMOVPN_VERSION_MAX     999999u
+#define NMOVPN_VERSION_UNKNOWN (NMOVPN_VERSION_MAX+1u)
+#define NMOVPN_VERSION_INVALID (NMOVPN_VERSION_MAX+2u)
+
+static inline guint
+nmovpn_version_encode (guint x, guint y, guint z)
+{
+	nm_assert(x <= 99);
+	nm_assert(y <= 99);
+	nm_assert(z <= 99);
+
+	return ((x * 100u + y) * 100u) + z;
+}
+
+static inline void
+nmovpn_version_decode (guint version, guint *out_x, guint *out_y, guint *out_z)
+{
+	*out_x = (version / 10000u);
+	*out_y = (version / 100u) % 100u;
+	*out_z = (version % 100u);
+}
+
+guint nmovpn_version_parse (const char *version_str);
 
 #endif  /* UTILS_H */
