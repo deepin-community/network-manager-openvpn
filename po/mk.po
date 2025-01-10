@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: NetworkManager-openvpn.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/NetworkManager-"
 "openvpn/\n"
-"POT-Creation-Date: 2022-11-14 16:45+0100\n"
+"POT-Creation-Date: 2024-06-21 17:10+0200\n"
 "PO-Revision-Date: 2007-12-02 18:53+0100\n"
 "Last-Translator: Arangel Angov <arangel@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -27,39 +27,6 @@ msgstr "OpenVPN клиент"
 #: appdata/network-manager-openvpn.metainfo.xml.in:11
 msgid "Client for OpenVPN virtual private networks"
 msgstr ""
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:14
-#, fuzzy
-#| msgid "Network"
-msgid "network"
-msgstr "Мрежа"
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:15
-msgid "manager"
-msgstr ""
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:16
-#, fuzzy
-#| msgid "Network"
-msgid "NetworkManager"
-msgstr "Мрежа"
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:17
-#, fuzzy
-#| msgid "Connection na_me:"
-msgid "connection"
-msgstr "Тип на вр_ска:"
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:18
-#, fuzzy
-msgid "VPN"
-msgstr "OpenVPN клиент"
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:19
-#: properties/nm-openvpn-editor-plugin.c:38
-#, fuzzy
-msgid "OpenVPN"
-msgstr "OpenVPN клиент"
 
 #: appdata/network-manager-openvpn.metainfo.xml.in:23
 msgid "Support for configuring OpenVPN virtual private network connections."
@@ -79,41 +46,45 @@ msgstr "Напредни опции за OpenVPN"
 msgid "The NetworkManager Developers"
 msgstr ""
 
-#: auth-dialog/main.c:175
+#: auth-dialog/main.c:180
 #, fuzzy
 msgid "Authentication required"
 msgstr "Потврди автентичност за виртуелна приватна мрежа"
 
-#: auth-dialog/main.c:182 properties/nm-openvpn-dialog.ui:336
-#: properties/nm-openvpn-dialog.ui:435 properties/nm-openvpn-editor.c:2734
+#: auth-dialog/main.c:187 properties/nm-openvpn-dialog.ui:336
+#: properties/nm-openvpn-dialog.ui:435 properties/nm-openvpn-editor.c:2737
 #, fuzzy
 msgid "Password"
 msgstr "_Лозинка:"
 
-#: auth-dialog/main.c:189
+#: auth-dialog/main.c:194
 #, fuzzy
 msgid "Certificate password"
 msgstr "Лозинка на сертификат:"
 
-#: auth-dialog/main.c:196
+#: auth-dialog/main.c:201
 #, fuzzy
 msgid "HTTP proxy password"
 msgstr "_Лозинка:"
 
-#: auth-dialog/main.c:236
+#: auth-dialog/main.c:209
+msgid "Challenge response"
+msgstr ""
+
+#: auth-dialog/main.c:249
 msgid "Authenticate VPN"
 msgstr "Потврди автентичност за виртуелна приватна мрежа"
 
-#: auth-dialog/main.c:245
+#: auth-dialog/main.c:258
 msgid "Certificate pass_word:"
 msgstr "Лозин_ка на сертификат:"
 
-#: auth-dialog/main.c:251
+#: auth-dialog/main.c:264
 #, fuzzy
 msgid "_HTTP proxy password:"
 msgstr "_Лозинка:"
 
-#: auth-dialog/main.c:517
+#: auth-dialog/main.c:546
 #, fuzzy, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr ""
@@ -362,20 +333,20 @@ msgid ""
 "PKCS#12 format.)"
 msgstr "Конфигурација на OpenVPN"
 
-#: properties/import-export.c:1986
+#: properties/import-export.c:1988
 msgid "missing path argument"
 msgstr ""
 
-#: properties/import-export.c:1996
+#: properties/import-export.c:1998
 #, fuzzy
 msgid "connection is not a valid OpenVPN connection"
 msgstr "Конфигурација на OpenVPN"
 
-#: properties/import-export.c:2005
+#: properties/import-export.c:2007
 msgid "connection was incomplete (missing gateway)"
 msgstr ""
 
-#: properties/import-export.c:2381
+#: properties/import-export.c:2383
 #, fuzzy, c-format
 msgid "failed to write file: %s"
 msgstr "Не можам да ја зачувам датотеката %s"
@@ -413,7 +384,7 @@ msgid "LZO adaptive (legacy)"
 msgstr ""
 
 #: properties/nm-openvpn-dialog.ui:126 properties/nm-openvpn-editor.c:379
-#: properties/nm-openvpn-editor.c:1016 properties/nm-openvpn-editor.c:1821
+#: properties/nm-openvpn-editor.c:1019 properties/nm-openvpn-editor.c:1824
 msgid "None"
 msgstr ""
 
@@ -505,7 +476,7 @@ msgstr "Локална IP:  %s"
 msgid "Key Direction"
 msgstr "Насока"
 
-#: properties/nm-openvpn-dialog.ui:582 properties/nm-openvpn-editor.c:2761
+#: properties/nm-openvpn-dialog.ui:582 properties/nm-openvpn-editor.c:2764
 msgid "Static Key"
 msgstr ""
 
@@ -549,7 +520,7 @@ msgstr ""
 msgid "Ad_vanced…"
 msgstr "На_предно"
 
-#: properties/nm-openvpn-dialog.ui:852 properties/nm-openvpn-editor.c:1621
+#: properties/nm-openvpn-dialog.ui:852 properties/nm-openvpn-editor.c:1624
 msgid "Not required"
 msgstr ""
 
@@ -1165,117 +1136,122 @@ msgstr ""
 msgid "Choose extra certificate file"
 msgstr "С_ертификат"
 
-#: properties/nm-openvpn-editor.c:782
+#: properties/nm-openvpn-editor.c:785
 msgid "OpenVPN Static Keys (*.key)"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:939 properties/nm-openvpn-editor.c:1033
+#: properties/nm-openvpn-editor.c:942 properties/nm-openvpn-editor.c:1036
 #, fuzzy
 msgid "Default"
 msgstr "(Стандардна: 1194)"
 
-#: properties/nm-openvpn-editor.c:1017
+#: properties/nm-openvpn-editor.c:1020
 msgid "RSA MD-4"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1018
+#: properties/nm-openvpn-editor.c:1021
 msgid "MD-5"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1019
+#: properties/nm-openvpn-editor.c:1022
 msgid "SHA-1"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1020
+#: properties/nm-openvpn-editor.c:1023
 msgid "SHA-224"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1021
+#: properties/nm-openvpn-editor.c:1024
 msgid "SHA-256"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1022
+#: properties/nm-openvpn-editor.c:1025
 msgid "SHA-384"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1023
+#: properties/nm-openvpn-editor.c:1026
 msgid "SHA-512"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1024
+#: properties/nm-openvpn-editor.c:1027
 msgid "RIPEMD-160"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1082
+#: properties/nm-openvpn-editor.c:1085
 msgid "Don’t verify certificate identification"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1088
+#: properties/nm-openvpn-editor.c:1091
 msgid "Verify whole subject exactly"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1094
+#: properties/nm-openvpn-editor.c:1097
 msgid "Verify name exactly"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1100
+#: properties/nm-openvpn-editor.c:1103
 msgid "Verify name by prefix"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1106
+#: properties/nm-openvpn-editor.c:1109
 msgid "Verify subject partially (legacy mode, strongly discouraged)"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1219 properties/nm-openvpn-editor.c:1291
+#: properties/nm-openvpn-editor.c:1222 properties/nm-openvpn-editor.c:1294
 msgid "Server"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1224 properties/nm-openvpn-editor.c:1296
+#: properties/nm-openvpn-editor.c:1227 properties/nm-openvpn-editor.c:1299
 #, fuzzy
 msgid "Client"
 msgstr "OpenVPN клиент"
 
-#: properties/nm-openvpn-editor.c:1623
+#: properties/nm-openvpn-editor.c:1626
 msgid "HTTP"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1625
+#: properties/nm-openvpn-editor.c:1628
 msgid "SOCKS"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1740
+#: properties/nm-openvpn-editor.c:1743
 msgid "TUN"
 msgstr "TUN"
 
-#: properties/nm-openvpn-editor.c:1742
+#: properties/nm-openvpn-editor.c:1745
 msgid "TAP"
 msgstr "TAP"
 
 #. interface name is max 15 chars
-#: properties/nm-openvpn-editor.c:1749
+#: properties/nm-openvpn-editor.c:1752
 msgid "(automatic)"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1912
+#: properties/nm-openvpn-editor.c:1915
 msgid "ping-exit"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:1914
+#: properties/nm-openvpn-editor.c:1917
 msgid "ping-restart"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:2723
+#: properties/nm-openvpn-editor.c:2726
 #, fuzzy
 msgid "Certificates (TLS)"
 msgstr "С_ертификат:"
 
-#: properties/nm-openvpn-editor.c:2748
+#: properties/nm-openvpn-editor.c:2751
 msgid "Password with Certificates (TLS)"
 msgstr ""
 
-#: properties/nm-openvpn-editor.c:2904
+#: properties/nm-openvpn-editor.c:2907
 msgid "could not load UI widget"
 msgstr ""
+
+#: properties/nm-openvpn-editor-plugin.c:38
+#, fuzzy
+msgid "OpenVPN"
+msgstr "OpenVPN клиент"
 
 #: properties/nm-openvpn-editor-plugin.c:39
 msgid "Compatible with the OpenVPN server."
@@ -1359,181 +1335,181 @@ msgstr ""
 msgid "invalid protocol"
 msgstr ""
 
-#: src/nm-openvpn-service.c:425
+#: src/nm-openvpn-service.c:429
 #, c-format
 msgid "invalid address “%s”"
 msgstr ""
 
-#: src/nm-openvpn-service.c:437
+#: src/nm-openvpn-service.c:441
 #, c-format
 msgid "invalid integer property “%s” or out of range [%d -> %d]"
 msgstr ""
 
 #. Translators: keep "yes" and "no" untranslated!
-#: src/nm-openvpn-service.c:448
+#: src/nm-openvpn-service.c:452
 #, c-format
 msgid "invalid boolean property “%s” (not yes or no)"
 msgstr ""
 
-#: src/nm-openvpn-service.c:455
+#: src/nm-openvpn-service.c:459
 #, c-format
 msgid "unhandled property “%s” type %s"
 msgstr ""
 
-#: src/nm-openvpn-service.c:466
+#: src/nm-openvpn-service.c:470
 #, c-format
 msgid "property “%s” invalid or not supported"
 msgstr ""
 
-#: src/nm-openvpn-service.c:482
+#: src/nm-openvpn-service.c:486
 #, fuzzy
 msgid "No VPN configuration options."
 msgstr "Конфигурација на OpenVPN"
 
-#: src/nm-openvpn-service.c:916
+#: src/nm-openvpn-service.c:921
 msgid "A username is required."
 msgstr ""
 
-#: src/nm-openvpn-service.c:920
+#: src/nm-openvpn-service.c:934
 msgid "A password is required."
 msgstr ""
 
-#: src/nm-openvpn-service.c:923
+#: src/nm-openvpn-service.c:936
 msgid "A username and password are required."
 msgstr ""
 
-#: src/nm-openvpn-service.c:945
+#: src/nm-openvpn-service.c:957
 msgid "A private key password is required."
 msgstr ""
 
-#: src/nm-openvpn-service.c:958
+#: src/nm-openvpn-service.c:970
 msgid "An HTTP Proxy username is required."
 msgstr ""
 
-#: src/nm-openvpn-service.c:962
+#: src/nm-openvpn-service.c:974
 msgid "An HTTP Proxy password is required."
 msgstr ""
 
-#: src/nm-openvpn-service.c:965
+#: src/nm-openvpn-service.c:977
 msgid "An HTTP Proxy username and password are required."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1336 src/nm-openvpn-service.c:2186
-#: src/nm-openvpn-service.c:2221
+#: src/nm-openvpn-service.c:1355 src/nm-openvpn-service.c:2189
+#: src/nm-openvpn-service.c:2224
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1345 src/nm-openvpn-service.c:2195
+#: src/nm-openvpn-service.c:1364 src/nm-openvpn-service.c:2198
 #, fuzzy
 msgid "Invalid connection type."
 msgstr "Ти_п на врска:"
 
-#: src/nm-openvpn-service.c:1363
+#: src/nm-openvpn-service.c:1382
 msgid "Could not find the openvpn binary."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1411
+#: src/nm-openvpn-service.c:1430
 #, c-format
 msgid "Invalid port number “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1431
+#: src/nm-openvpn-service.c:1450
 #, c-format
 msgid "Invalid proto “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1480
+#: src/nm-openvpn-service.c:1499
 #, c-format
 msgid "Invalid proxy type “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1578
+#: src/nm-openvpn-service.c:1597
 #, c-format
 msgid "Invalid ping duration “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1591
+#: src/nm-openvpn-service.c:1610
 #, c-format
 msgid "Invalid ping-exit duration “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1604
+#: src/nm-openvpn-service.c:1623
 #, c-format
 msgid "Invalid ping-restart duration “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1617
+#: src/nm-openvpn-service.c:1636
 #, fuzzy, c-format
 msgid "Invalid connect timeout “%s”."
 msgstr "Ти_п на врска:"
 
-#: src/nm-openvpn-service.c:1642
+#: src/nm-openvpn-service.c:1661
 #, c-format
 msgid "Invalid max-routes argument “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1704
+#: src/nm-openvpn-service.c:1707
 #, c-format
 msgid "Invalid keysize “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1776
+#: src/nm-openvpn-service.c:1779
 msgid "Invalid configuration with tls-remote and verify-x509-name."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1789
+#: src/nm-openvpn-service.c:1792
 msgid "Invalid verify-x509-name."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1812
+#: src/nm-openvpn-service.c:1815
 #, c-format
 msgid "Invalid reneg seconds “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1842
+#: src/nm-openvpn-service.c:1845
 #, c-format
 msgid "Invalid TUN MTU size “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1855
+#: src/nm-openvpn-service.c:1858
 #, c-format
 msgid "Invalid fragment size “%s”."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1965
+#: src/nm-openvpn-service.c:1968
 #, fuzzy, c-format
 msgid "Unknown connection type “%s”."
 msgstr "Ти_п на врска:"
 
-#: src/nm-openvpn-service.c:1983
+#: src/nm-openvpn-service.c:1986
 #, c-format
 msgid "User “%s” not found, check NM_OPENVPN_USER."
 msgstr ""
 
-#: src/nm-openvpn-service.c:1995
+#: src/nm-openvpn-service.c:1998
 #, c-format
 msgid "Group “%s” not found, check NM_OPENVPN_GROUP."
 msgstr ""
 
-#: src/nm-openvpn-service.c:2234
+#: src/nm-openvpn-service.c:2237
 msgid "Unhandled pending authentication."
 msgstr ""
 
-#: src/nm-openvpn-service.c:2352
+#: src/nm-openvpn-service.c:2355
 msgid "Don’t quit when VPN connection terminates"
 msgstr ""
 
-#: src/nm-openvpn-service.c:2353
+#: src/nm-openvpn-service.c:2356
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr ""
 
-#: src/nm-openvpn-service.c:2354
+#: src/nm-openvpn-service.c:2357
 msgid "D-Bus name to use for this instance"
 msgstr ""
 
-#: src/nm-openvpn-service.c:2380
+#: src/nm-openvpn-service.c:2383
 msgid ""
 "nm-openvpn-service provides integrated OpenVPN capability to NetworkManager."
 msgstr ""
@@ -1682,6 +1658,9 @@ msgstr ""
 #~ msgid "C_A file:"
 #~ msgstr "C_A датотека:"
 
+#~ msgid "Connection na_me:"
+#~ msgstr "Тип на вр_ска:"
+
 #~ msgid "Import _Saved Configuration..."
 #~ msgstr "Увези _зачувана конфигурација..."
 
@@ -1691,6 +1670,9 @@ msgstr ""
 #~ msgstr ""
 #~ "Име кое ќе се користи за идентификација на врската до приватната мрежа, "
 #~ "на пр. \"VPN на универзитетот\" или \"Мрежа на здружението\""
+
+#~ msgid "Network"
+#~ msgstr "Мрежа"
 
 #~ msgid "Only use _VPN connection for these addresses:"
 #~ msgstr "Користи _VPN врски само за овие адреси:"

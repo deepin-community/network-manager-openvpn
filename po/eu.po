@@ -4,15 +4,15 @@
 #
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2008, 2009, 2010, 2014, 2015.
 # Edurne Labaka <elabaka@uzei.com>, 2015.
-# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2021, 2022.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: network-manager-openvpn master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/NetworkManager-"
 "openvpn/\n"
-"POT-Creation-Date: 2022-11-14 16:45+0100\n"
-"PO-Revision-Date: 2022-05-13 18:58+0100\n"
+"POT-Creation-Date: 2024-06-21 17:10+0200\n"
+"PO-Revision-Date: 2023-04-10 18:58+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -30,37 +30,6 @@ msgstr "OpenVPN bezeroa"
 msgid "Client for OpenVPN virtual private networks"
 msgstr "OpenVPN sare birtual pribatuetarako bezeroa"
 
-#: appdata/network-manager-openvpn.metainfo.xml.in:14
-msgid "network"
-msgstr ""
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:15
-msgid "manager"
-msgstr ""
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:16
-#, fuzzy
-#| msgid "The NetworkManager Developers"
-msgid "NetworkManager"
-msgstr "NetworkManager aplikazioaren garatzaileak"
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:17
-#, fuzzy
-#| msgid "Use a _TCP connection"
-msgid "connection"
-msgstr "Erabili _TCP konexioa"
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:18
-#, fuzzy
-#| msgid "OpenVPN"
-msgid "VPN"
-msgstr "OpenVPN"
-
-#: appdata/network-manager-openvpn.metainfo.xml.in:19
-#: properties/nm-openvpn-editor-plugin.c:38
-msgid "OpenVPN"
-msgstr "OpenVPN"
-
 #: appdata/network-manager-openvpn.metainfo.xml.in:23
 msgid "Support for configuring OpenVPN virtual private network connections."
 msgstr "OpenVPN sare birtual pribatuetako konexioak konfiguratzeko euskarria."
@@ -70,45 +39,47 @@ msgid "OpenVPN is a popular and flexible free-software VPN solution."
 msgstr "OpenVPN software libreko VPN aplikazio ezagun eta moldakorra da."
 
 #: appdata/network-manager-openvpn.metainfo.xml.in:32
-#, fuzzy
-#| msgid "OpenVPN Advanced Options"
 msgid "The advanced options dialog"
-msgstr "OpenVPN-ren aukera aurreratuak"
+msgstr "Aukera aurreratuen elkarrizketa-koadroa"
 
 #: appdata/network-manager-openvpn.metainfo.xml.in:41
 msgid "The NetworkManager Developers"
 msgstr "NetworkManager aplikazioaren garatzaileak"
 
-#: auth-dialog/main.c:175
+#: auth-dialog/main.c:180
 msgid "Authentication required"
 msgstr "Autentifikazioa behar da"
 
-#: auth-dialog/main.c:182 properties/nm-openvpn-dialog.ui:336
-#: properties/nm-openvpn-dialog.ui:435 properties/nm-openvpn-editor.c:2734
+#: auth-dialog/main.c:187 properties/nm-openvpn-dialog.ui:336
+#: properties/nm-openvpn-dialog.ui:435 properties/nm-openvpn-editor.c:2737
 msgid "Password"
 msgstr "Pasahitza"
 
-#: auth-dialog/main.c:189
+#: auth-dialog/main.c:194
 msgid "Certificate password"
 msgstr "Ziurtagiriaren pasahitza"
 
-#: auth-dialog/main.c:196
+#: auth-dialog/main.c:201
 msgid "HTTP proxy password"
 msgstr "HTTP proxyaren pasahitza"
 
-#: auth-dialog/main.c:236
+#: auth-dialog/main.c:209
+msgid "Challenge response"
+msgstr ""
+
+#: auth-dialog/main.c:249
 msgid "Authenticate VPN"
 msgstr "Autentifikatu VPN"
 
-#: auth-dialog/main.c:245
+#: auth-dialog/main.c:258
 msgid "Certificate pass_word:"
 msgstr "_Ziurtagiriaren pasahitza:"
 
-#: auth-dialog/main.c:251
+#: auth-dialog/main.c:264
 msgid "_HTTP proxy password:"
 msgstr "_HTTP proxyaren pasahitza:"
 
-#: auth-dialog/main.c:517
+#: auth-dialog/main.c:546
 #, c-format
 msgid "You need to authenticate to access the Virtual Private Network “%s”."
 msgstr "Autentifikatu egin behar duzu “%s” Sare Birtual Pribatura sartzeko."
@@ -261,7 +232,7 @@ msgstr "aukera baliogabea"
 
 #: properties/import-export.c:1007
 msgid "allow-compression: invalid argument"
-msgstr ""
+msgstr "allow-compression: argumentu baliogabea"
 
 #: properties/import-export.c:1029
 msgid "unsupported comp-lzo argument"
@@ -286,7 +257,7 @@ msgstr "urrunekoak “udp” edo “tcp” motako protokoloa espero du"
 #: properties/import-export.c:1269
 #, c-format
 msgid "invalid keyword “%s” in tls-version-min"
-msgstr ""
+msgstr "“%s” gako-hitz baliogabea tls-version-min aukeran"
 
 #: properties/import-export.c:1430
 msgid "invalid verify-x509-name type"
@@ -367,30 +338,30 @@ msgstr ""
 "Inportatzeko fitxategia ez zen baliozko OpenVPN konfigurazio bat (--key ezin "
 "da izan PKCS#12 formatua)."
 
-#: properties/import-export.c:1986
+#: properties/import-export.c:1988
 msgid "missing path argument"
 msgstr "bide-izenaren argumentua falta da"
 
-#: properties/import-export.c:1996
+#: properties/import-export.c:1998
 msgid "connection is not a valid OpenVPN connection"
 msgstr "konexioa ez da baliozko OpenVPN konexioa"
 
-#: properties/import-export.c:2005
+#: properties/import-export.c:2007
 msgid "connection was incomplete (missing gateway)"
 msgstr "konexioa ez dago osorik (atebidea falta da)"
 
-#: properties/import-export.c:2381
+#: properties/import-export.c:2383
 #, c-format
 msgid "failed to write file: %s"
 msgstr "huts egin du fitxategia idazteak: %s"
 
 #: properties/nm-openvpn-dialog.ui:73
 msgid "Asymmetric"
-msgstr ""
+msgstr "Asimetrikoa"
 
 #: properties/nm-openvpn-dialog.ui:76
 msgid "Symmetric"
-msgstr ""
+msgstr "Simetrikoa"
 
 #: properties/nm-openvpn-dialog.ui:87
 msgid "LZO"
@@ -417,7 +388,7 @@ msgid "LZO adaptive (legacy)"
 msgstr "LZO moldakorra (zaharkituta)"
 
 #: properties/nm-openvpn-dialog.ui:126 properties/nm-openvpn-editor.c:379
-#: properties/nm-openvpn-editor.c:1016 properties/nm-openvpn-editor.c:1821
+#: properties/nm-openvpn-editor.c:1019 properties/nm-openvpn-editor.c:1824
 msgid "None"
 msgstr "Bat ere ez"
 
@@ -434,10 +405,8 @@ msgid "TLS-Crypt v2"
 msgstr "TLS-Crypt v2"
 
 #: properties/nm-openvpn-dialog.ui:146
-#, fuzzy
-#| msgid "None"
 msgid "No"
-msgstr "Bat ere ez"
+msgstr "Ez"
 
 #: properties/nm-openvpn-dialog.ui:149
 msgid "Maybe"
@@ -514,7 +483,7 @@ msgstr "IP helbide lokala"
 msgid "Key Direction"
 msgstr "Gakoaren helbidea"
 
-#: properties/nm-openvpn-dialog.ui:582 properties/nm-openvpn-editor.c:2761
+#: properties/nm-openvpn-dialog.ui:582 properties/nm-openvpn-editor.c:2764
 msgid "Static Key"
 msgstr "Gako estatikoa"
 
@@ -569,7 +538,7 @@ msgstr "Hautatu autentifikazioaren modua."
 msgid "Ad_vanced…"
 msgstr "A_urreratua…"
 
-#: properties/nm-openvpn-dialog.ui:852 properties/nm-openvpn-editor.c:1621
+#: properties/nm-openvpn-dialog.ui:852 properties/nm-openvpn-editor.c:1624
 msgid "Not required"
 msgstr "Ez da beharrezkoa"
 
@@ -634,6 +603,8 @@ msgid ""
 "Enable or disable outgoing traffic compression\n"
 "config: allow-compression asym|yes"
 msgstr ""
+"Gaitu edo desgaitu irteerako trafikoaren konpresioa\n"
+"config: allow-compression asym|yes"
 
 #: properties/nm-openvpn-dialog.ui:1146
 msgid "Use a _TCP connection"
@@ -819,6 +790,15 @@ msgid ""
 "\n"
 "config: float"
 msgstr ""
+"Onartu urruneko parekoak bere IP helbidea eta/edo ataka-zenbakia aldatu "
+"dezan, adibidez DHCPren ondorioz (hori da balio lehenetsia --remote "
+"erabiltzen ez bada). --remote aukerarekin batera --float erabiltzen bada, "
+"OpenVPN saioa hasieran helbide ezagun batean dagoen pareko batekin "
+"konektatuko da; hala ere, paketeak beste helbide batetik iristen badira eta "
+"autentifikazio-proba guztiak gainditzen badituzte, helbide berriak saioaren "
+"kontrola hartuko du. Erabilgarria helbide dinamikoa duen pareko batekin, "
+"adibidez markatze bidezko erabiltzaile batekin edo DHCP bezero batekin, "
+"konektatzean."
 
 #: properties/nm-openvpn-dialog.ui:1551
 msgid "Specify max routes"
@@ -961,6 +941,18 @@ msgid ""
 "config: verify-x509-name subject-or-name [mode]\n"
 "config (legacy mode): tls-remote subject-or-name"
 msgstr ""
+"Egiaztatu zerbitzari-ziurtagiriaren identifikazioa.\n"
+"\n"
+"Gaituta dagoenean, konexioa arrakastatsua izateko zerbitzari-ziurtagiriak "
+"bat etorri behar du espero diren zenbait propietaterekin.\n"
+"Bat etortzea ziurtagiri-subjektu osoari (eremu guztiak),\n"
+"edo soilik Izen Arruntaren eremuari (CN eremua).\n"
+"\n"
+"tls-remote aukera zaharkituta dago eta kendu egin da OpenVPN 2.4 eta "
+"berriagoetan. Ez erabili berriro.\n"
+"\n"
+"config: verify-x509-name subjektua-edo-izena [modua]\n"
+"config (modu zaharkitua): tls-remote subjektua-edo-izena"
 
 #: properties/nm-openvpn-dialog.ui:1972
 msgid "_Verify peer (server) certificate usage signature"
@@ -1075,16 +1067,16 @@ msgstr ""
 "konfigurazioa: extra-certs <fitxategia>"
 
 #: properties/nm-openvpn-dialog.ui:2292
-#, fuzzy
-#| msgid "TLS _min version"
 msgid "TLS cipher string"
-msgstr "TLS bertsio _min"
+msgstr "TLS zifratzearen katea"
 
 #: properties/nm-openvpn-dialog.ui:2305
 msgid ""
 "Set a value for the --tls-cipher parameter. This can be useful for working "
 "with VPNs using deprecated hashing schemes."
 msgstr ""
+"Ezarri balio bat --tls-cipher parametrorako. Hash-eskema zaharkituak "
+"dituzten VPNekin lan egiteko erabili daiteke."
 
 #: properties/nm-openvpn-dialog.ui:2326
 msgid "Additional TLS authentication or encryption"
@@ -1103,16 +1095,12 @@ msgid "TLS _min version"
 msgstr "TLS bertsio _min"
 
 #: properties/nm-openvpn-dialog.ui:2394
-#, fuzzy
-#| msgid ""
-#| "Set the maximum TLS version we will use (default is the highest version "
-#| "supported).  Examples for version include \"1.0\", \"1.1\", or \"1.2\"."
 msgid ""
 " Sets the minimum TLS version we will accept from the peer (default is "
 "\"1.0\").  Examples for version include \"1.0\", \"1.1\", or \"1.2\"."
 msgstr ""
-"Erabiliko den TLS bertsio berriena (balio lehenetsia, onartutako bertsiorik "
-"berriena da).  Adibideak: \"1.0\", \"1.1\", edo \"1.2\". "
+" Parekoan onartuko den TLS bertsio minimoa ezartzen du (balio lehenetsia "
+"\"1.0\" da). Adibideak: \"1.0\", \"1.1\", edo \"1.2\"."
 
 #: properties/nm-openvpn-dialog.ui:2406
 msgid "TLS ma_x version"
@@ -1124,27 +1112,19 @@ msgid ""
 "supported).  Examples for version include \"1.0\", \"1.1\", or \"1.2\"."
 msgstr ""
 "Erabiliko den TLS bertsio berriena (balio lehenetsia, onartutako bertsiorik "
-"berriena da).  Adibideak: \"1.0\", \"1.1\", edo \"1.2\". "
+"berriena da).  Adibideak: \"1.0\", \"1.1\", edo \"1.2\"."
 
 #: properties/nm-openvpn-dialog.ui:2429
 msgid "_or highest"
-msgstr ""
+msgstr "_edo berriagoa"
 
 #: properties/nm-openvpn-dialog.ui:2432
-#, fuzzy
-#| msgid ""
-#| " Sets the minimum TLS version we will accept from the peer (default is "
-#| "\"1.0\").  Examples for version include \"1.0\", \"1.1\", or \"1.2\".  If "
-#| "'or-highest' is specified and version is not recognized, we will only "
-#| "accept the highest TLS version supported by the local SSL implementation."
 msgid ""
 "If set and version is not recognized, we will only accept the highest TLS "
 "version supported by the local SSL implementation."
 msgstr ""
-" Parekorako onartuko den gutxieneko TLS bertsioa (lehenetsia \"1.0\" da).  "
-"Adibideak: \"1.0\", \"1.1\", edo \"1.2\".  Zehazten bada 'or-highest' eta "
-"bertsioa ezagutzen ez bada, SSL inplementazio lokalak onartutako TLS bertsio "
-"berriena soilik onartuko da."
+"Ezarpena eta bertsioa ezagutzen ez badira, SSL inplementazio lokalak "
+"onartzen duen TLS bertsio berriena soilik onartuko da."
 
 #: properties/nm-openvpn-dialog.ui:2461
 msgid "TLS Authentication"
@@ -1295,114 +1275,118 @@ msgstr "Aukeratu gako-fitxategia"
 msgid "Choose extra certificate file"
 msgstr "Aukeratu ziurtagiri-fitxategi gehigarria"
 
-#: properties/nm-openvpn-editor.c:782
+#: properties/nm-openvpn-editor.c:785
 msgid "OpenVPN Static Keys (*.key)"
 msgstr "OpenVPN gako estatikoak (*.key)"
 
-#: properties/nm-openvpn-editor.c:939 properties/nm-openvpn-editor.c:1033
+#: properties/nm-openvpn-editor.c:942 properties/nm-openvpn-editor.c:1036
 msgid "Default"
 msgstr "Lehenetsia"
 
-#: properties/nm-openvpn-editor.c:1017
+#: properties/nm-openvpn-editor.c:1020
 msgid "RSA MD-4"
 msgstr "RSA MD-4"
 
-#: properties/nm-openvpn-editor.c:1018
+#: properties/nm-openvpn-editor.c:1021
 msgid "MD-5"
 msgstr "MD-5"
 
-#: properties/nm-openvpn-editor.c:1019
+#: properties/nm-openvpn-editor.c:1022
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: properties/nm-openvpn-editor.c:1020
+#: properties/nm-openvpn-editor.c:1023
 msgid "SHA-224"
 msgstr "SHA-224"
 
-#: properties/nm-openvpn-editor.c:1021
+#: properties/nm-openvpn-editor.c:1024
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: properties/nm-openvpn-editor.c:1022
+#: properties/nm-openvpn-editor.c:1025
 msgid "SHA-384"
 msgstr "SHA-384"
 
-#: properties/nm-openvpn-editor.c:1023
+#: properties/nm-openvpn-editor.c:1026
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: properties/nm-openvpn-editor.c:1024
+#: properties/nm-openvpn-editor.c:1027
 msgid "RIPEMD-160"
 msgstr "RIPEMD-160"
 
-#: properties/nm-openvpn-editor.c:1082
+#: properties/nm-openvpn-editor.c:1085
 msgid "Don’t verify certificate identification"
 msgstr "Ez egiaztatu ziurtagiriaren identifikazioa"
 
-#: properties/nm-openvpn-editor.c:1088
+#: properties/nm-openvpn-editor.c:1091
 msgid "Verify whole subject exactly"
 msgstr "Egiaztatu gai osoa zehazki"
 
-#: properties/nm-openvpn-editor.c:1094
+#: properties/nm-openvpn-editor.c:1097
 msgid "Verify name exactly"
 msgstr "Egiaztatu izena zehazki"
 
-#: properties/nm-openvpn-editor.c:1100
+#: properties/nm-openvpn-editor.c:1103
 msgid "Verify name by prefix"
 msgstr "Egiaztatu izena aurrizkiaren arabera"
 
-#: properties/nm-openvpn-editor.c:1106
+#: properties/nm-openvpn-editor.c:1109
 msgid "Verify subject partially (legacy mode, strongly discouraged)"
 msgstr "Egiaztatu izena partzialki (zaharkitua, ez erabili)"
 
-#: properties/nm-openvpn-editor.c:1219 properties/nm-openvpn-editor.c:1291
+#: properties/nm-openvpn-editor.c:1222 properties/nm-openvpn-editor.c:1294
 msgid "Server"
 msgstr "Zerbitzaria"
 
-#: properties/nm-openvpn-editor.c:1224 properties/nm-openvpn-editor.c:1296
+#: properties/nm-openvpn-editor.c:1227 properties/nm-openvpn-editor.c:1299
 msgid "Client"
 msgstr "Bezeroa"
 
-#: properties/nm-openvpn-editor.c:1623
+#: properties/nm-openvpn-editor.c:1626
 msgid "HTTP"
 msgstr "HTTP"
 
-#: properties/nm-openvpn-editor.c:1625
+#: properties/nm-openvpn-editor.c:1628
 msgid "SOCKS"
 msgstr "SOCKS"
 
-#: properties/nm-openvpn-editor.c:1740
+#: properties/nm-openvpn-editor.c:1743
 msgid "TUN"
 msgstr "TUN"
 
-#: properties/nm-openvpn-editor.c:1742
+#: properties/nm-openvpn-editor.c:1745
 msgid "TAP"
 msgstr "TAP"
 
 #. interface name is max 15 chars
-#: properties/nm-openvpn-editor.c:1749
+#: properties/nm-openvpn-editor.c:1752
 msgid "(automatic)"
 msgstr "(automatikoa)"
 
-#: properties/nm-openvpn-editor.c:1912
+#: properties/nm-openvpn-editor.c:1915
 msgid "ping-exit"
 msgstr "ping-exit"
 
-#: properties/nm-openvpn-editor.c:1914
+#: properties/nm-openvpn-editor.c:1917
 msgid "ping-restart"
 msgstr "ping-restart"
 
-#: properties/nm-openvpn-editor.c:2723
+#: properties/nm-openvpn-editor.c:2726
 msgid "Certificates (TLS)"
 msgstr "Ziurtagiriak (TLS)"
 
-#: properties/nm-openvpn-editor.c:2748
+#: properties/nm-openvpn-editor.c:2751
 msgid "Password with Certificates (TLS)"
 msgstr "Pasahitza ziurtagiriekin (TLS)"
 
-#: properties/nm-openvpn-editor.c:2904
+#: properties/nm-openvpn-editor.c:2907
 msgid "could not load UI widget"
 msgstr "ezin izan da interfazearen trepeta kargatu"
+
+#: properties/nm-openvpn-editor-plugin.c:38
+msgid "OpenVPN"
+msgstr "OpenVPN"
 
 #: properties/nm-openvpn-editor-plugin.c:39
 msgid "Compatible with the OpenVPN server."
@@ -1491,12 +1475,12 @@ msgstr "ataka baliogabea"
 msgid "invalid protocol"
 msgstr "protokolo baliogabea"
 
-#: src/nm-openvpn-service.c:425
+#: src/nm-openvpn-service.c:429
 #, c-format
 msgid "invalid address “%s”"
 msgstr "“%s” helbide baliogabea"
 
-#: src/nm-openvpn-service.c:437
+#: src/nm-openvpn-service.c:441
 #, c-format
 msgid "invalid integer property “%s” or out of range [%d -> %d]"
 msgstr ""
@@ -1504,55 +1488,55 @@ msgstr ""
 "%d]"
 
 #. Translators: keep "yes" and "no" untranslated!
-#: src/nm-openvpn-service.c:448
+#: src/nm-openvpn-service.c:452
 #, c-format
 msgid "invalid boolean property “%s” (not yes or no)"
 msgstr "“%s” propietate boolear baliogabea (ez da bai edo ez)"
 
-#: src/nm-openvpn-service.c:455
+#: src/nm-openvpn-service.c:459
 #, c-format
 msgid "unhandled property “%s” type %s"
 msgstr "maneiatu gabeko “%s” propietate mota %s"
 
-#: src/nm-openvpn-service.c:466
+#: src/nm-openvpn-service.c:470
 #, c-format
 msgid "property “%s” invalid or not supported"
 msgstr "“%s” propietatea baliogabea da edo ez dago onartuta"
 
-#: src/nm-openvpn-service.c:482
+#: src/nm-openvpn-service.c:486
 msgid "No VPN configuration options."
 msgstr "Ez dago VPNaren konfigurazioaren aukerarik."
 
-#: src/nm-openvpn-service.c:916
+#: src/nm-openvpn-service.c:921
 msgid "A username is required."
 msgstr "Erabiltzaile-izena behar da."
 
-#: src/nm-openvpn-service.c:920
+#: src/nm-openvpn-service.c:934
 msgid "A password is required."
 msgstr "Pasahitza behar da."
 
-#: src/nm-openvpn-service.c:923
+#: src/nm-openvpn-service.c:936
 msgid "A username and password are required."
 msgstr "Erabiltzaile-izena eta pasahitza behar dira."
 
-#: src/nm-openvpn-service.c:945
+#: src/nm-openvpn-service.c:957
 msgid "A private key password is required."
 msgstr "Gako pribatuaren pasahitza behar da."
 
-#: src/nm-openvpn-service.c:958
+#: src/nm-openvpn-service.c:970
 msgid "An HTTP Proxy username is required."
 msgstr "HTTP proxy-aren erabiltzaile-izena behar da."
 
-#: src/nm-openvpn-service.c:962
+#: src/nm-openvpn-service.c:974
 msgid "An HTTP Proxy password is required."
 msgstr "HTTP proxy-aren pasahitza behar da."
 
-#: src/nm-openvpn-service.c:965
+#: src/nm-openvpn-service.c:977
 msgid "An HTTP Proxy username and password are required."
 msgstr "HTTP proxy-aren erabiltzaile-izena eta pasahitza behar dira."
 
-#: src/nm-openvpn-service.c:1336 src/nm-openvpn-service.c:2186
-#: src/nm-openvpn-service.c:2221
+#: src/nm-openvpn-service.c:1355 src/nm-openvpn-service.c:2189
+#: src/nm-openvpn-service.c:2224
 msgid ""
 "Could not process the request because the VPN connection settings were "
 "invalid."
@@ -1560,114 +1544,114 @@ msgstr ""
 "Ezin izan da eskaera prozesatu VPN konexioaren ezarpenak baliogabekoak "
 "direlako."
 
-#: src/nm-openvpn-service.c:1345 src/nm-openvpn-service.c:2195
+#: src/nm-openvpn-service.c:1364 src/nm-openvpn-service.c:2198
 msgid "Invalid connection type."
 msgstr "Baliogabeko konexio mota."
 
-#: src/nm-openvpn-service.c:1363
+#: src/nm-openvpn-service.c:1382
 msgid "Could not find the openvpn binary."
 msgstr "Ezin izan da openvpn bitarra aurkitu."
 
-#: src/nm-openvpn-service.c:1411
+#: src/nm-openvpn-service.c:1430
 #, c-format
 msgid "Invalid port number “%s”."
 msgstr "Ataka-zenbaki baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1431
+#: src/nm-openvpn-service.c:1450
 #, c-format
 msgid "Invalid proto “%s”."
 msgstr "proto baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1480
+#: src/nm-openvpn-service.c:1499
 #, c-format
 msgid "Invalid proxy type “%s”."
 msgstr "Proxy mota baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1578
+#: src/nm-openvpn-service.c:1597
 #, c-format
 msgid "Invalid ping duration “%s”."
 msgstr "Ping iraupen baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1591
+#: src/nm-openvpn-service.c:1610
 #, c-format
 msgid "Invalid ping-exit duration “%s”."
 msgstr "ping-exit iraupen baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1604
+#: src/nm-openvpn-service.c:1623
 #, c-format
 msgid "Invalid ping-restart duration “%s”."
 msgstr "ping-restart iraupen baliogabea “%s”."
 
-#: src/nm-openvpn-service.c:1617
+#: src/nm-openvpn-service.c:1636
 #, c-format
 msgid "Invalid connect timeout “%s”."
 msgstr "Konexioaren denbora-muga baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1642
+#: src/nm-openvpn-service.c:1661
 #, c-format
 msgid "Invalid max-routes argument “%s”."
 msgstr "max-routes argumentu baliogabea “%s”."
 
-#: src/nm-openvpn-service.c:1704
+#: src/nm-openvpn-service.c:1707
 #, c-format
 msgid "Invalid keysize “%s”."
 msgstr "Gako-tamaina baliogabea:“%s”."
 
-#: src/nm-openvpn-service.c:1776
+#: src/nm-openvpn-service.c:1779
 msgid "Invalid configuration with tls-remote and verify-x509-name."
 msgstr "Konfigurazio baliogabea tls-remote eta verify-x509-name aukerekin."
 
-#: src/nm-openvpn-service.c:1789
+#: src/nm-openvpn-service.c:1792
 msgid "Invalid verify-x509-name."
 msgstr "verify-x509-name baliogabea."
 
-#: src/nm-openvpn-service.c:1812
+#: src/nm-openvpn-service.c:1815
 #, c-format
 msgid "Invalid reneg seconds “%s”."
 msgstr "Birnegoziazio-segungo baliogabeak: “%s”."
 
-#: src/nm-openvpn-service.c:1842
+#: src/nm-openvpn-service.c:1845
 #, c-format
 msgid "Invalid TUN MTU size “%s”."
 msgstr "TUN MTU tamaina baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1855
+#: src/nm-openvpn-service.c:1858
 #, c-format
 msgid "Invalid fragment size “%s”."
 msgstr "Zati-tamaina baliogabea: “%s”."
 
-#: src/nm-openvpn-service.c:1965
+#: src/nm-openvpn-service.c:1968
 #, c-format
 msgid "Unknown connection type “%s”."
 msgstr "Konexio mota ezezaguna: “%s”"
 
-#: src/nm-openvpn-service.c:1983
+#: src/nm-openvpn-service.c:1986
 #, c-format
 msgid "User “%s” not found, check NM_OPENVPN_USER."
 msgstr "Ez da aurkitu “%s” erabiltzailea, begiratu NM_OPENVPN_USER."
 
-#: src/nm-openvpn-service.c:1995
+#: src/nm-openvpn-service.c:1998
 #, c-format
 msgid "Group “%s” not found, check NM_OPENVPN_GROUP."
 msgstr "Ez da aurkitu “%s” taldea, begiratu NM_OPENVPN_GROUP."
 
-#: src/nm-openvpn-service.c:2234
+#: src/nm-openvpn-service.c:2237
 msgid "Unhandled pending authentication."
 msgstr "Autentifikatzea falta dena kudeatu gabe."
 
-#: src/nm-openvpn-service.c:2352
+#: src/nm-openvpn-service.c:2355
 msgid "Don’t quit when VPN connection terminates"
 msgstr "Ez irten VPN konexioa amaitzen denean"
 
-#: src/nm-openvpn-service.c:2353
+#: src/nm-openvpn-service.c:2356
 msgid "Enable verbose debug logging (may expose passwords)"
 msgstr "Gaitu arazketaren erregistro xehea (pasahitzak erakuts ditzake)"
 
-#: src/nm-openvpn-service.c:2354
+#: src/nm-openvpn-service.c:2357
 msgid "D-Bus name to use for this instance"
 msgstr "Instantzia honetan erabiliko den D-Bus izena"
 
-#: src/nm-openvpn-service.c:2380
+#: src/nm-openvpn-service.c:2383
 msgid ""
 "nm-openvpn-service provides integrated OpenVPN capability to NetworkManager."
 msgstr ""

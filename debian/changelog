@@ -1,3 +1,42 @@
+network-manager-openvpn (1.12.0-2) unstable; urgency=medium
+
+  * Update Homepage URL
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 05 Sep 2024 22:22:20 +0200
+
+network-manager-openvpn (1.12.0-1) unstable; urgency=medium
+
+  * New upstream version 1.12.0
+
+ -- Michael Biebl <biebl@debian.org>  Sat, 22 Jun 2024 01:22:58 +0200
+
+network-manager-openvpn (1.11.0-1) unstable; urgency=medium
+
+  * New upstream version 1.11.0
+  * Bump minimum required version of network-manager to 1.46
+  * Bump Standards-Version to 4.7.0
+  * Build-depend on pkgconf instead of pkg-config
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 06 May 2024 10:50:20 +0200
+
+network-manager-openvpn (1.10.2-4) unstable; urgency=medium
+
+  * Install helper binaries into /usr/libexec
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 20 Oct 2023 18:34:31 +0200
+
+network-manager-openvpn (1.10.2-3) unstable; urgency=medium
+
+  * Add explicit Build-Depends on pkg-config.
+    Do not rely on other packages to pull in this build requirement for us.
+  * Add Build-Depends on libgtk-4-bin.
+    The gtk4-builder-tool is required during build to generate the gtk4 .ui
+    files as those are removed by the 'clean' target.
+    This addresses ftbfs-binary-after-build. (Closes: #1049816)
+  * Bump Standards-Version to 4.6.2
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 16 Aug 2023 11:39:14 +0200
+
 network-manager-openvpn (1.10.2-2) unstable; urgency=medium
 
   * Stop creating /var/lib/openvpn/chroot/tmp.

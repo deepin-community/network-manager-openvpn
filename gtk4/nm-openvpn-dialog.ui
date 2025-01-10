@@ -1477,7 +1477,7 @@ config: remote-cert-tls client|server</property>
                             <property name="label" translatable="1">_Verify peer (server) certificate nsCertType designation</property>
                             <property name="focusable">1</property>
                             <property name="tooltip_text" translatable="1">Require that peer certificate was signed with an explicit nsCertType designation.</property>
-                            <property name="halign">baseline</property>
+                            <property name="halign">baseline-fill</property>
                             <property name="valign">start</property>
                             <property name="use_underline">1</property>
                             <layout>
