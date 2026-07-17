@@ -8,16 +8,16 @@
   <extends>org.gnome.Settings.desktop</extends>
   <extends>gnome-control-center.desktop</extends>
   <name>OpenVPN client</name>
-  <name xml:lang="zh_CN">OpenVPN 客户端</name>
+  <name xml:lang="zh-Hans-CN">OpenVPN 客户端</name>
   <name xml:lang="uk">Клієнт OpenVPN</name>
   <name xml:lang="tr">OpenVPN istemcisi</name>
   <name xml:lang="sv">OpenVPN-klient</name>
-  <name xml:lang="sr@latin">OpenVPN klijent</name>
-  <name xml:lang="sr">ОпенВПН клијент</name>
+  <name xml:lang="sr-Latn">OpenVPN klijent</name>
+  <name xml:lang="sr-Cyrl">ОпенВПН клијент</name>
   <name xml:lang="sl">Odjemalec OpenVPN</name>
   <name xml:lang="sk">Klient OpenVPN</name>
   <name xml:lang="ru">Клиент OpenVPN</name>
-  <name xml:lang="pt_BR">Cliente OpenVPN</name>
+  <name xml:lang="pt-BR">Cliente OpenVPN</name>
   <name xml:lang="pl">Klient OpenVPN</name>
   <name xml:lang="nl">OpenVPN-cliënt</name>
   <name xml:lang="lv">OpenVPN klients</name>
@@ -26,8 +26,9 @@
   <name xml:lang="ja">OpenVPN クライアント</name>
   <name xml:lang="it">Client OpenVPN</name>
   <name xml:lang="id">Klien OpenVPN</name>
-  <name xml:lang="hu">OpenVPN kliens</name>
+  <name xml:lang="hu">OpenVPN ügyfélprogram</name>
   <name xml:lang="hr">OpenVPN klijent</name>
+  <name xml:lang="hi">OpenVPN क्लाइंट</name>
   <name xml:lang="he">לקוח OpenVPN</name>
   <name xml:lang="gl">Cliente OpenVPN</name>
   <name xml:lang="fur">Client OpenVPN</name>
@@ -41,22 +42,24 @@
   <name xml:lang="cs">Klient OpenVPN</name>
   <name xml:lang="ca">Client OpenVPN</name>
   <summary>Client for OpenVPN virtual private networks</summary>
-  <summary xml:lang="zh_CN">OpenVPN 虚拟专用网络的客户端</summary>
+  <summary xml:lang="zh-Hans-CN">OpenVPN 虚拟专用网络的客户端</summary>
   <summary xml:lang="uk">Клієнт для віртуальних приватних мереж OpenVPN</summary>
   <summary xml:lang="tr">OpenVPN sanal özel ağları için istemci</summary>
   <summary xml:lang="sv">Klient för OpenVPN virtuella privata nätverk</summary>
-  <summary xml:lang="sr@latin">Klijent za virtuelne privatne mreže kroz OpenVPN</summary>
-  <summary xml:lang="sr">Клијент за виртуелне приватне мреже кроз ОпенВПН</summary>
-  <summary xml:lang="ru">Клиент виртуальных частных сетей OpenVPN</summary>
-  <summary xml:lang="pt_BR">Cliente para redes privadas virtuais OpenVPN</summary>
+  <summary xml:lang="sr-Latn">Klijent za virtuelne privatne mreže kroz OpenVPN</summary>
+  <summary xml:lang="sr-Cyrl">Клијент за виртуелне приватне мреже кроз ОпенВПН</summary>
+  <summary xml:lang="sl">Odjemalec za navidezna zasebna omrežja OpenVPN</summary>
+  <summary xml:lang="ru">Клиент для частных виртуальных сетей OpenVPN</summary>
+  <summary xml:lang="pt-BR">Cliente para redes privadas virtuais OpenVPN</summary>
   <summary xml:lang="pl">Klient dla wirtualnych sieci prywatnych OpenVPN</summary>
   <summary xml:lang="nl">Cliënt voor OpenVPN-virtuele privénetwerken</summary>
   <summary xml:lang="lv">OpenVPN virtuālā privātā tīkla klients</summary>
   <summary xml:lang="lt">Klientas OpenVPN virtualiems privatiems tinklams</summary>
   <summary xml:lang="it">Client per reti private virtuali OpenVPN</summary>
   <summary xml:lang="id">Klien untuk virtual private network OpenVPN</summary>
-  <summary xml:lang="hu">Kliens az OpenVPN virtuális magánhálózatokhoz</summary>
+  <summary xml:lang="hu">Ügyfélprogram az OpenVPN virtuális magánhálózatokhoz</summary>
   <summary xml:lang="hr">Klijent za OpenVPN virtualne privatne mreže</summary>
+  <summary xml:lang="hi">OpenVPN वर्चुअल प्राइवेट नेटवर्क के लिए क्लाइंट</summary>
   <summary xml:lang="he">לקוח לרשתות וירטואלית פרטיות מסוג OpenVPN</summary>
   <summary xml:lang="gl">Cliente para redes privadas virtuais OpenVPN</summary>
   <summary xml:lang="fur">Client pes rêts privadis virtuâls OpenVPN</summary>
@@ -74,22 +77,22 @@
     <keyword>connection</keyword>
     <keyword>VPN</keyword>
     <keyword>OpenVPN</keyword>
-    <keyword xml:lang="zh_TW">OpenVPN</keyword>
-    <keyword xml:lang="zh_HK">OpenVPN</keyword>
-    <keyword xml:lang="zh_CN">OpenVPN</keyword>
+    <keyword xml:lang="zh-Hant-TW">OpenVPN</keyword>
+    <keyword xml:lang="zh-Hant-HK">OpenVPN</keyword>
+    <keyword xml:lang="zh-Hans-CN">OpenVPN</keyword>
     <keyword xml:lang="uk">OpenVPN</keyword>
     <keyword xml:lang="ug">OpenVPN</keyword>
     <keyword xml:lang="tr">OpenVPN</keyword>
     <keyword xml:lang="te">OpenVPN</keyword>
     <keyword xml:lang="ta">VPNஐ திறக்கவும்</keyword>
     <keyword xml:lang="sv">OpenVPN</keyword>
-    <keyword xml:lang="sr@latin">OpenVPN</keyword>
-    <keyword xml:lang="sr">ОпенВПН</keyword>
+    <keyword xml:lang="sr-Latn">OpenVPN</keyword>
+    <keyword xml:lang="sr-Cyrl">ОпенВПН</keyword>
     <keyword xml:lang="sl">OpenVPN</keyword>
     <keyword xml:lang="sk">OpenVPN</keyword>
     <keyword xml:lang="ru">OpenVPN</keyword>
     <keyword xml:lang="ro">OpenVPN</keyword>
-    <keyword xml:lang="pt_BR">OpenVPN</keyword>
+    <keyword xml:lang="pt-BR">OpenVPN</keyword>
     <keyword xml:lang="pt">OpenVPN</keyword>
     <keyword xml:lang="ps">OpenVPN</keyword>
     <keyword xml:lang="pl">OpenVPN</keyword>
@@ -107,6 +110,7 @@
     <keyword xml:lang="id">OpenVPN</keyword>
     <keyword xml:lang="hu">OpenVPN</keyword>
     <keyword xml:lang="hr">OpenVPN</keyword>
+    <keyword xml:lang="hi">OpenVPN</keyword>
     <keyword xml:lang="he">OpenVPN</keyword>
     <keyword xml:lang="gu">OpenVPN</keyword>
     <keyword xml:lang="gl">OpenVPN</keyword>
@@ -118,28 +122,29 @@
     <keyword xml:lang="et">OpenVPN</keyword>
     <keyword xml:lang="es">OpenVPN</keyword>
     <keyword xml:lang="eo">OpenVPN</keyword>
-    <keyword xml:lang="en_GB">OpenVPN</keyword>
+    <keyword xml:lang="en-GB">OpenVPN</keyword>
     <keyword xml:lang="el">OpenVPN</keyword>
     <keyword xml:lang="de">OpenVPN</keyword>
     <keyword xml:lang="da">OpenVPN</keyword>
     <keyword xml:lang="cs">OpenVPN</keyword>
-    <keyword xml:lang="ca@valencia">OpenVPN</keyword>
+    <keyword xml:lang="ca-valencia">OpenVPN</keyword>
     <keyword xml:lang="ca">OpenVPN</keyword>
-    <keyword xml:lang="bs">OpenVPN</keyword>
+    <keyword xml:lang="bs-Latn">OpenVPN</keyword>
     <keyword xml:lang="bg">OpenVPN</keyword>
-    <keyword xml:lang="be">OpenVPN</keyword>
+    <keyword xml:lang="be-Cyrl">OpenVPN</keyword>
     <keyword xml:lang="as">OpenVPN</keyword>
   </keywords>
   <description>
     <p>Support for configuring OpenVPN virtual private network connections.</p>
-    <p xml:lang="zh_CN">支持配置 OpenVPN 虚拟专用网络连接。</p>
+    <p xml:lang="zh-Hans-CN">支持配置 OpenVPN 虚拟专用网络连接。</p>
     <p xml:lang="uk">Підтримка налаштовування з'єднань із віртуальними приватними мережами OpenVPN.</p>
     <p xml:lang="tr">OpenVPN sanal özel ağ bağlantılarını yapılandırma desteği.</p>
     <p xml:lang="sv">Stöd för att konfigurera OpenVPN virtuella privata nätverksanslutningar.</p>
-    <p xml:lang="sr@latin">Podrška za podešavanje povezivanja u virtuelnim privatnim mrežama kroz OpenVPN.</p>
-    <p xml:lang="sr">Подршка за подешавање повезивања у виртуелним приватним мрежама кроз ОпенВПН.</p>
-    <p xml:lang="ru">Поддержка настройки виртуальных частных сетевых соединений OpenVPN.</p>
-    <p xml:lang="pt_BR">Suporte a configuração conexões de rede privada virtual OpenVPN.</p>
+    <p xml:lang="sr-Latn">Podrška za podešavanje povezivanja u virtuelnim privatnim mrežama kroz OpenVPN.</p>
+    <p xml:lang="sr-Cyrl">Подршка за подешавање повезивања у виртуелним приватним мрежама кроз ОпенВПН.</p>
+    <p xml:lang="sl">Podpora za nastavljanje povezav navideznega zasebnega omrežja OpenVPN.</p>
+    <p xml:lang="ru">Возможность создания конфигураций виртуальных частных подключений OpenVPN</p>
+    <p xml:lang="pt-BR">Suporte a configuração conexões de rede privada virtual OpenVPN.</p>
     <p xml:lang="pl">Obsługa konfigurowania połączeń wirtualnych sieci prywatnych OpenVPN.</p>
     <p xml:lang="nl">Ondersteuning voor configuratie van OpenVPN-virtueleprivénetwerkverbindingen.</p>
     <p xml:lang="lv">Atbalsts OpenVPN virtuālo privāto tīklu savienojumu konfigurēšanai.</p>
@@ -148,6 +153,7 @@
     <p xml:lang="id">Dukungan untuk menata koneksi virtual private network OpenVPN.</p>
     <p xml:lang="hu">Az OpenVPN virtuális magánhálózati kapcsolatok beállításának támogatása.</p>
     <p xml:lang="hr">Podrška za podešavanje OpenVPN virtualne privatne mreže.</p>
+    <p xml:lang="hi">OpenVPN वर्चुअल प्राइवेट नेटवर्क कनेक्शन विन्यास करने के लिए समर्थन।</p>
     <p xml:lang="he">תמיכה בהגדרות חיבורי רשתות וירטואליות פרטיות מסוג OpenVPN.</p>
     <p xml:lang="gl">Asistencia para configurar as conexións da rede privada virtual OpenVPN.</p>
     <p xml:lang="fur">Supuart par configurâ lis conessions di rêt privade virtuâl OpenVPN.</p>
@@ -159,14 +165,15 @@
     <p xml:lang="cs">Podpora nastavení sítí OpenVPN.</p>
     <p xml:lang="ca">Ajuda per a configurar connexions a xarxes privades virtuals OpenVPN.</p>
     <p>OpenVPN is a popular and flexible free-software VPN solution.</p>
-    <p xml:lang="zh_CN">OpenVPN 是个流行且灵活的自由软件 VPN 解决方案。</p>
+    <p xml:lang="zh-Hans-CN">OpenVPN 是个流行且灵活的自由软件 VPN 解决方案。</p>
     <p xml:lang="uk">OpenVPN — популярне і гнучке вільне рішення для VPN.</p>
     <p xml:lang="tr">OpenVPN, gözde ve esnek özgür yazılım VPN çözümüdür.</p>
     <p xml:lang="sv">OpenVPN är en populär och flexibel VPN-lösning som är fri programvara.</p>
-    <p xml:lang="sr@latin">OpenVPN je popularan, prilagodljiv i slobodan program za VPN.</p>
-    <p xml:lang="sr">ОпенВПН је популаран, прилагодљив и слободан програм за ВПН.</p>
-    <p xml:lang="ru">OpenVPN — популярное и гибкое решение VPN со свободным кодом.</p>
-    <p xml:lang="pt_BR">OpenVPN é uma solução VPN popular e flexível de software livre.</p>
+    <p xml:lang="sr-Latn">OpenVPN je popularan, prilagodljiv i slobodan program za VPN.</p>
+    <p xml:lang="sr-Cyrl">ОпенВПН је популаран, прилагодљив и слободан програм за ВПН.</p>
+    <p xml:lang="sl">OpenVPN je priljubljena in prilagodljiva brezplačna programska rešitev VPN.</p>
+    <p xml:lang="ru">OpenVPN — это популярное и гибкое решение с открытым кодом для создания подключений VPN</p>
+    <p xml:lang="pt-BR">OpenVPN é uma solução VPN popular e flexível de software livre.</p>
     <p xml:lang="pl">OpenVPN to popularne i elastyczne oprogramowanie VPN na wolnej licencji.</p>
     <p xml:lang="nl">OpenVPN is een populaire, flexibele en vrije VPN-oplossing.</p>
     <p xml:lang="lv">OpenVPN ir populārs un elastīgs brīvās programmatūras VPN risinājums.</p>
@@ -175,6 +182,7 @@
     <p xml:lang="id">OpenVPN adalah sebuah solusi VPN perangkat lunak bebas yang populer dan luwes.</p>
     <p xml:lang="hu">Az OpenVPN egy népszerű és rugalmas, szabad szoftveres VPN megoldás.</p>
     <p xml:lang="hr">OpenVPN je popularno i fleksibilno VPN rješenje otvorenog kôda.</p>
+    <p xml:lang="hi">OpenVPN एक लोकप्रिय और लचीला मुफ्त सॉफ्टवेयर VPN समाधान है।</p>
     <p xml:lang="he">‫OpenVPN היא פתרון VPN נפוץ וגמיש במסגרת תכנה חופשית.</p>
     <p xml:lang="gl">OpenVPN é unha popular e flexíbel solución de software libre para VPN.</p>
     <p xml:lang="fur">OpenVPN e je une famose e flessibile soluzion VPN di software libar.</p>
@@ -192,15 +200,25 @@
     </screenshot>
     <screenshot>
       <caption>The advanced options dialog</caption>
+      <caption xml:lang="zh-Hans-CN">高级选项对话框</caption>
       <caption xml:lang="uk">Вікно додаткових параметрів</caption>
       <caption xml:lang="tr">Gelişmiş seçenekler iletişim kutusu</caption>
       <caption xml:lang="sv">Dialogen för avancerade alternativ</caption>
-      <caption xml:lang="sr">Прозорче напредних опција</caption>
+      <caption xml:lang="sr-Cyrl">Прозорче напредних опција</caption>
       <caption xml:lang="sl">Pogovorno okno z naprednimi možnostmi</caption>
-      <caption xml:lang="pt_BR">A janela de opções avançadas</caption>
+      <caption xml:lang="ru">Диалог расширенных параметров</caption>
+      <caption xml:lang="pt-BR">A janela de opções avançadas</caption>
       <caption xml:lang="pl">Okno zaawansowanych opcji</caption>
+      <caption xml:lang="lt">Išplėstinių parametrų dialogas</caption>
       <caption xml:lang="ka">დამატებთი პარამეტრების ფანჯარა</caption>
+      <caption xml:lang="id">Dialog opsi tingkat lanjut</caption>
+      <caption xml:lang="hu">A speciális beállítások párbeszédablak</caption>
       <caption xml:lang="hr">Dijalog naprednih mogućnosti</caption>
+      <caption xml:lang="hi">उन्नत विकल्प संवाद</caption>
+      <caption xml:lang="he">חלונית האפשרויות המתקדמות</caption>
+      <caption xml:lang="gl">O diálogo de opcións avanzadas</caption>
+      <caption xml:lang="eu">Aukera aurreratuen elkarrizketa-koadroa</caption>
+      <caption xml:lang="de">Erweiterter Einstellungen-Dialog</caption>
       <caption xml:lang="da">Dialogen med avancerede indstillinger</caption>
       <image width="800" height="604">https://gitlab.gnome.org/GNOME/NetworkManager-openvpn/raw/master/appdata/openvpn-advanced.png</image>
     </screenshot>
@@ -210,15 +228,15 @@
   <update_contact>networkmanager-maint@gnome.bugs</update_contact>
   <translation type="gettext">NetworkManager-openvpn</translation>
   <developer_name>The NetworkManager Developers</developer_name>
-  <developer_name xml:lang="zh_CN">NetworkManager 开发者</developer_name>
+  <developer_name xml:lang="zh-Hans-CN">NetworkManager 开发者</developer_name>
   <developer_name xml:lang="uk">Розробники NetworkManager</developer_name>
   <developer_name xml:lang="tr">NetworkManager Geliştiricileri</developer_name>
   <developer_name xml:lang="sv">Utvecklarna av Nätverkshanteraren</developer_name>
-  <developer_name xml:lang="sr@latin">Razvojni tim Upravnika mreže</developer_name>
-  <developer_name xml:lang="sr">Развојни тим Управника мреже</developer_name>
+  <developer_name xml:lang="sr-Latn">Razvojni tim Upravnika mreže</developer_name>
+  <developer_name xml:lang="sr-Cyrl">Развојни тим Управника мреже</developer_name>
   <developer_name xml:lang="sl">Razvijalci programa NetworkManager</developer_name>
   <developer_name xml:lang="ru">Разработчики NetworkManager</developer_name>
-  <developer_name xml:lang="pt_BR">Os desenvolvedores NetworkManager</developer_name>
+  <developer_name xml:lang="pt-BR">Os desenvolvedores NetworkManager</developer_name>
   <developer_name xml:lang="pl">Programiści projektu NetworkManager</developer_name>
   <developer_name xml:lang="nl">De Netwerkbeheer-ontwikkelaars</developer_name>
   <developer_name xml:lang="lv">NetworkManager izstrādātāji</developer_name>
@@ -228,6 +246,7 @@
   <developer_name xml:lang="id">Para Pengembang NetworkManager</developer_name>
   <developer_name xml:lang="hu">A Hálózatkezelő fejlesztői</developer_name>
   <developer_name xml:lang="hr">Razvijatelji Mrežnog upravitelja</developer_name>
+  <developer_name xml:lang="hi">NetworkManager विकासकर्ता</developer_name>
   <developer_name xml:lang="he">מפתחי NetworkManager</developer_name>
   <developer_name xml:lang="gl">Os desenvolvedores do NetworkManager</developer_name>
   <developer_name xml:lang="fur">I svilupadôrs di NetworkManager</developer_name>

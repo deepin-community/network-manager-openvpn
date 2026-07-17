@@ -103,6 +103,8 @@ typedef struct {
 	char *pending_auth;
 	char *challenge_state_id;
 	char *challenge_text;
+	char *challenge_response;
+	char *challenge_flags;
 	GIOChannel *socket_channel;
 	guint socket_channel_eventid;
 } NMOpenvpnPluginIOData;
@@ -145,6 +147,7 @@ static const ValidProperty valid_properties[] = {
 	{ NM_OPENVPN_KEY_CRL_VERIFY_FILE,           G_TYPE_STRING, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_CRL_VERIFY_DIR,            G_TYPE_STRING, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_DATA_CIPHERS,              G_TYPE_STRING, 0, 0, FALSE },
+	{ NM_OPENVPN_KEY_DATA_CIPHERS_FALLBACK,     G_TYPE_STRING, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_EXTRA_CERTS,               G_TYPE_STRING, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_FLOAT,                     G_TYPE_BOOLEAN, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_NCP_DISABLE,               G_TYPE_BOOLEAN, 0, 0, FALSE },
@@ -194,6 +197,7 @@ static const ValidProperty valid_properties[] = {
 	{ NM_OPENVPN_KEY_TLS_VERSION_MIN,           G_TYPE_STRING, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_TLS_VERSION_MIN_OR_HIGHEST,G_TYPE_BOOLEAN, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_TLS_VERSION_MAX,           G_TYPE_STRING, 0, 0, FALSE },
+	{ NM_OPENVPN_KEY_CHALLENGE_RESPONSE_FLAGS,  G_TYPE_STRING, 0, 0, FALSE },
 	{ NULL,                                     G_TYPE_NONE, FALSE }
 };
 
@@ -202,6 +206,7 @@ static const ValidProperty valid_secrets[] = {
 	{ NM_OPENVPN_KEY_CERTPASS,             G_TYPE_STRING, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_NOSECRET,             G_TYPE_STRING, 0, 0, FALSE },
 	{ NM_OPENVPN_KEY_HTTP_PROXY_PASSWORD,  G_TYPE_STRING, 0, 0, FALSE },
+	{ NM_OPENVPN_KEY_CHALLENGE_RESPONSE,   G_TYPE_STRING, 0, 0, FALSE },
 	{ NULL,                                G_TYPE_NONE, FALSE }
 };
 
@@ -424,7 +429,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 			             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
 			             _("invalid address “%s”"),
 			             key);
-			break;
+			return;
 		case G_TYPE_INT:
 			errno = 0;
 			tmp = strtol (value, NULL, 10);
@@ -436,7 +441,7 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 			             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
 			             _("invalid integer property “%s” or out of range [%d -> %d]"),
 			             key, prop->int_min, prop->int_max);
-			break;
+			return;
 		case G_TYPE_BOOLEAN:
 			if (NM_IN_STRSET (value, "yes", "no"))
 				return; /* valid */
@@ -447,14 +452,14 @@ validate_one_property (const char *key, const char *value, gpointer user_data)
 			             /* Translators: keep "yes" and "no" untranslated! */
 			             _("invalid boolean property “%s” (not yes or no)"),
 			             key);
-			break;
+			return;
 		default:
 			g_set_error (info->error,
 			             NM_VPN_PLUGIN_ERROR,
 			             NM_VPN_PLUGIN_ERROR_BAD_ARGUMENTS,
 			             _("unhandled property “%s” type %s"),
 			             key, g_type_name (prop->type));
-			break;
+			return;
 		}
 	}
 
@@ -687,7 +692,7 @@ pids_pending_send_sigterm (PidsPendingData *pid_data)
 	_LOGI ("openvpn[%ld]: send SIGTERM", (long) pid_data->pid);
 	pid_data->is_terminating = TRUE;
 	kill (pid_data->pid, SIGTERM);
-	pid_data->kill_id = g_timeout_add (2000, pids_pending_ensure_killed, pid_data);
+	pid_data->kill_id = g_timeout_add (10000, pids_pending_ensure_killed, pid_data);
 }
 
 static gboolean
@@ -714,7 +719,7 @@ pids_pending_wait_for_processes (void)
 	for (iter = gl.pids_pending_list; iter; iter = iter->next)
 		pids_pending_send_sigterm (iter->data);
 
-	source_id = g_timeout_add (3000, _pids_pending_wait_for_processes_timeout, &timed_out);
+	source_id = g_timeout_add (15000, _pids_pending_wait_for_processes_timeout, &timed_out);
 
 	do {
 		g_main_context_iteration (NULL, TRUE);
@@ -781,14 +786,14 @@ ovpn_quote_string (const char *unquoted)
 
 	g_return_val_if_fail (unquoted != NULL, NULL);
 
-	/* FIXME: use unpaged memory */
-	quoted = q = g_malloc0 (strlen (unquoted) * 2);
+	quoted = q = g_malloc (strlen (unquoted) * 2 + 1);
 	while (*u) {
 		/* Escape certain characters */
 		if (*u == ' ' || *u == '\\' || *u == '"')
 			*q++ = '\\';
 		*q++ = *u++;
 	}
+	*q = '\0';
 
 	return quoted;
 }
@@ -815,7 +820,7 @@ get_detail (const char *input, const char *prefix)
  * CRV1:flags:state_id:username:text
  */
 static gboolean
-parse_challenge (const char *failure_reason, char **challenge_state_id, char **challenge_text)
+parse_challenge (const char *failure_reason, char **challenge_state_id, char **challenge_text, char **challenge_flags)
 {
 	const char *colon[4];
 
@@ -839,6 +844,7 @@ parse_challenge (const char *failure_reason, char **challenge_state_id, char **c
 	if (!colon[3])
 		return FALSE;
 
+	*challenge_flags = g_strndup (colon[0] + 1, colon[1] - colon[0] - 1);
 	*challenge_state_id = g_strndup (colon[1] + 1, colon[2] - colon[1] - 1);
 	*challenge_text = g_strdup (colon[3] + 1);
 	return TRUE;
@@ -892,37 +898,53 @@ handle_auth (NMOpenvpnPluginIOData *io_data,
 		if (!username)
 			username = io_data->default_username;
 
-		if (username != NULL && io_data->password != NULL && io_data->challenge_state_id) {
+		if (username != NULL && io_data->challenge_state_id && io_data->challenge_response) {
 			gs_free char *response = NULL;
 
 			response = g_strdup_printf ("CRV1::%s::%s",
 			                            io_data->challenge_state_id,
-			                            io_data->password);
+			                            io_data->challenge_response);
 			write_user_pass (io_data->socket_channel,
 			                 requested_auth,
 			                 username,
 			                 response);
 			nm_clear_g_free (&io_data->challenge_state_id);
 			nm_clear_g_free (&io_data->challenge_text);
+			/* Don't try to reuse OTP challenge responses or we'll loop if the challenge is wrong */
+			nm_clear_g_free (&io_data->challenge_response);
 		} else if (username != NULL && io_data->password != NULL) {
 			write_user_pass (io_data->socket_channel,
 			                 requested_auth,
 			                 username,
 			                 io_data->password);
+			/* Invalidate any known OTP challenge response after reauthenticating with password
+			 * This is needed if the authenticator on the server side has invalidated a authentication
+			 * session after too many failed challenge responses
+			 */
+			if (io_data->challenge_response) {
+				nm_clear_g_free (&io_data->challenge_response);
+			}
 		} else {
 			hints = g_new0 (const char *, 3);
 			if (!username) {
 				hints[i++] = NM_OPENVPN_KEY_USERNAME;
 				*out_message = _("A username is required.");
 			}
-			if (!io_data->password) {
-				hints[i++] = NM_OPENVPN_KEY_PASSWORD;
-				*out_message = _("A password is required.");
-			}
-			if (!username && !io_data->password)
-				*out_message = _("A username and password are required.");
-			if (io_data->challenge_text)
+
+			if (io_data->challenge_state_id) {
+				/* If we have a challenge we must have already authenticated with a password */
+				if (strstr (io_data->challenge_flags, "E"))
+					hints[i++] = NM_OPENVPN_HINT_CHALLENGE_RESPONSE_ECHO;
+				else
+					hints[i++] = NM_OPENVPN_HINT_CHALLENGE_RESPONSE_NOECHO;
 				*out_message = io_data->challenge_text;
+			} else if (!io_data->password) {
+				hints[i++] = NM_OPENVPN_KEY_PASSWORD;
+				if (username)
+					*out_message = _ ("A password is required.");
+				else
+					*out_message = _ ("A username and password are required.");
+			}
 		}
 		handled = TRUE;
 	} else if (nm_streq (requested_auth, "Private Key")) {
@@ -1046,10 +1068,12 @@ handle_management_socket (NMOpenvpnPlugin *plugin,
 			gs_free char *failure_reason = NULL;
 
 			failure_reason = get_detail (str, ">PASSWORD:Verification Failed: 'Auth' ['");
-			if (parse_challenge (failure_reason, &priv->io_data->challenge_state_id, &priv->io_data->challenge_text)) {
-				_LOGD ("Received challenge '%s' for state '%s'",
+			if (parse_challenge (failure_reason, &priv->io_data->challenge_state_id,
+			                     &priv->io_data->challenge_text, &priv->io_data->challenge_flags)) {
+				_LOGD ("Received challenge '%s' for state '%s' with flags '%s'",
+				       priv->io_data->challenge_text,
 				       priv->io_data->challenge_state_id,
-				       priv->io_data->challenge_text);
+				       priv->io_data->challenge_flags);
 			} else
 				_LOGW ("Password verification failed");
 
@@ -1209,6 +1233,10 @@ update_io_data_from_vpn_setting (NMOpenvpnPluginIOData *io_data,
 		g_free (io_data->password);
 	}
 	io_data->password = g_strdup (nm_setting_vpn_get_secret (s_vpn, NM_OPENVPN_KEY_PASSWORD));
+	if (io_data->challenge_response) {
+		nm_clear_g_free (&io_data->challenge_response);
+	}
+	io_data->challenge_response = g_strdup (nm_setting_vpn_get_secret (s_vpn, NM_OPENVPN_KEY_CHALLENGE_RESPONSE));
 
 	if (io_data->priv_key_pass) {
 		memset (io_data->priv_key_pass, 0, strlen (io_data->priv_key_pass));
@@ -1676,21 +1704,7 @@ nm_openvpn_start_openvpn_binary (NMOpenvpnPlugin *plugin,
 
 	args_add_vpn_data (args, s_vpn, NM_OPENVPN_KEY_DATA_CIPHERS, "--data-ciphers");
 
-	if (nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_CIPHER) &&
-	    !nm_setting_vpn_get_data_item (s_vpn, NM_OPENVPN_KEY_DATA_CIPHERS) &&
-	    openvpn_binary_detect_version_cached (openvpn_binary, &openvpn_binary_version) >=
-	        nmovpn_version_encode (2, 5, 0)) {
-		/* Since 2.5, openvpn will warn if "cipher" is set but "data-ciphers" doesn't
-		 * contain the cipher. It still used to automatically add the cipher.
-		 * Since 2.6, the cipher is no longer automatically added, which is unlikely
-		 * what the user wants.
-		 *
-		 * We automatically add it, so if the user only sets cipher (e.g. when
-		 * having an old profile or targeting 2.4) it still works. So ciphers
-		 * means something slightly different for the plugin, unless you set
-		 * data-ciphers to anything. */
-		args_add_vpn_data (args, s_vpn, NM_OPENVPN_KEY_CIPHER, "--data-ciphers");
-	}
+	args_add_vpn_data (args, s_vpn, NM_OPENVPN_KEY_DATA_CIPHERS_FALLBACK, "--data-ciphers-fallback");
 
 	args_add_vpn_data (args, s_vpn, NM_OPENVPN_KEY_TLS_CIPHER, "--tls-cipher");
 
@@ -2326,7 +2340,7 @@ static gboolean
 signal_handler (gpointer user_data)
 {
 	g_main_loop_quit (user_data);
-	return G_SOURCE_REMOVE;
+	return G_SOURCE_CONTINUE;
 }
 
 static void
