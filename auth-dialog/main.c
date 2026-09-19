@@ -35,6 +35,11 @@
 
 #include "utils.h"
 
+#if !GTK_CHECK_VERSION(4,0,0)
+#define gtk_init()			gtk_init(NULL, NULL)
+#define gtk_window_destroy(window)			gtk_widget_destroy(GTK_WIDGET (window))
+#endif
+
 #define KEYRING_UUID_TAG "connection-uuid"
 #define KEYRING_SN_TAG "setting-name"
 #define KEYRING_SK_TAG "setting-key"
@@ -108,7 +113,9 @@ typedef void (*FinishFunc) (const char *vpn_name,
                             gboolean need_certpass,
                             const char *certpass,
                             gboolean need_proxypass,
-                            const char *proxypass);
+                            const char *proxypass,
+                            gboolean need_challengeresponse,
+                            gboolean need_challengeresponse_echo);
 
 /*****************************************************************/
 /* External UI mode stuff */
@@ -118,13 +125,14 @@ keyfile_add_entry_info (GKeyFile    *keyfile,
                         const gchar *key,
                         const gchar *value,
                         const gchar *label,
-                        gboolean     is_secret,
+                        gboolean     force_echo,
                         gboolean     should_ask)
 {
 	g_key_file_set_string (keyfile, key, "Value", value);
 	g_key_file_set_string (keyfile, key, "Label", label);
-	g_key_file_set_boolean (keyfile, key, "IsSecret", is_secret);
+	g_key_file_set_boolean (keyfile, key, "IsSecret", TRUE);
 	g_key_file_set_boolean (keyfile, key, "ShouldAsk", should_ask);
+	g_key_file_set_boolean (keyfile, key, "ForceEcho", force_echo);
 }
 
 static void
@@ -148,7 +156,7 @@ eui_no_secrets_required (void)
 	keyfile = g_key_file_new ();
 
 	g_key_file_set_integer (keyfile, UI_KEYFILE_GROUP, "Version", 2);
-	keyfile_add_entry_info (keyfile, NM_OPENVPN_KEY_NOSECRET, "true", "", TRUE, FALSE);
+	keyfile_add_entry_info (keyfile, NM_OPENVPN_KEY_NOSECRET, "true", "", FALSE, FALSE);
 	keyfile_print_stdout (keyfile);
 	g_key_file_unref (keyfile);
 }
@@ -162,7 +170,9 @@ eui_finish (const char *vpn_name,
             gboolean need_certpass,
             const char *existing_certpass,
             gboolean need_proxypass,
-            const char *existing_proxypass)
+            const char *existing_proxypass,
+            gboolean need_challengeresponse,
+            gboolean need_challengeresponse_echo)
 {
 	GKeyFile *keyfile;
 	char *title;
@@ -180,22 +190,30 @@ eui_finish (const char *vpn_name,
 	                        NM_OPENVPN_KEY_PASSWORD,
 	                        existing_password ? existing_password : "",
 	                        _("Password"),
-	                        TRUE,
+	                        FALSE,
 	                        need_password && allow_interaction);
 
 	keyfile_add_entry_info (keyfile,
 	                        NM_OPENVPN_KEY_CERTPASS,
 	                        existing_certpass ? existing_certpass : "",
 	                        _("Certificate password"),
-	                        TRUE,
+	                        FALSE,
 	                        need_certpass && allow_interaction);
 
 	keyfile_add_entry_info (keyfile,
 	                        NM_OPENVPN_KEY_HTTP_PROXY_PASSWORD,
 	                        existing_proxypass ? existing_proxypass : "",
 	                        _("HTTP proxy password"),
-	                        TRUE,
+	                        FALSE,
 	                        need_proxypass && allow_interaction);
+
+	keyfile_add_entry_info (keyfile,
+	                        need_challengeresponse_echo ? NM_OPENVPN_HINT_CHALLENGE_RESPONSE_ECHO
+	                                                    : NM_OPENVPN_HINT_CHALLENGE_RESPONSE_NOECHO,
+	                        "",
+	                        _("Challenge response"),
+	                        need_challengeresponse_echo,
+	                        need_challengeresponse && allow_interaction);
 
 	keyfile_print_stdout (keyfile);
 	g_key_file_unref (keyfile);
@@ -231,7 +249,7 @@ std_ask_user (const char *vpn_name,
 	g_return_val_if_fail (out_new_certpass != NULL, FALSE);
 	g_return_val_if_fail (out_new_proxypass != NULL, FALSE);
 
-	gtk_init (NULL, NULL);
+	gtk_init ();
 
 	dialog = NMA_VPN_PASSWORD_DIALOG (nma_vpn_password_dialog_new (_("Authenticate VPN"), prompt, NULL));
 
@@ -264,7 +282,7 @@ std_ask_user (const char *vpn_name,
 		success = TRUE;
 	}
 
-	gtk_widget_destroy (GTK_WIDGET (dialog));
+	gtk_window_destroy (GTK_WINDOW (dialog));
 	return success;
 }
 
@@ -302,7 +320,9 @@ std_finish (const char *vpn_name,
             gboolean need_certpass,
             const char *certpass,
             gboolean need_proxypass,
-            const char *proxypass)
+            const char *proxypass,
+	    gboolean need_challengeresponse,
+	    gboolean need_challengeresponse_echo)
 {
 	/* Send the passwords back to our parent */
 	if (password)
@@ -376,7 +396,9 @@ get_passwords_required (GHashTable *data,
                         const char *const*hints,
                         gboolean *out_need_password,
                         gboolean *out_need_certpass,
-                        gboolean *out_need_proxypass)
+                        gboolean *out_need_proxypass,
+                        gboolean *out_need_challengeresponse,
+                        gboolean *out_need_challengeresponse_echo)
 {
 	const char *ctype, *val;
 	NMSettingSecretFlags flags;
@@ -386,6 +408,8 @@ get_passwords_required (GHashTable *data,
 	*out_need_password = FALSE;
 	*out_need_certpass = FALSE;
 	*out_need_proxypass = FALSE;
+	*out_need_challengeresponse = FALSE;
+	*out_need_challengeresponse_echo = FALSE;
 
 	/* If hints are given, then always ask for what the hints require */
 	if (hints && hints[0]) {
@@ -398,6 +422,12 @@ get_passwords_required (GHashTable *data,
 				*out_need_certpass = TRUE;
 			else if (strcmp (*iter, NM_OPENVPN_KEY_HTTP_PROXY_PASSWORD) == 0)
 				*out_need_proxypass = TRUE;
+			else if (strcmp (*iter, NM_OPENVPN_HINT_CHALLENGE_RESPONSE_NOECHO) == 0)
+				*out_need_challengeresponse = TRUE;
+			else if (strcmp (*iter, NM_OPENVPN_HINT_CHALLENGE_RESPONSE_ECHO) == 0) {
+				*out_need_challengeresponse = TRUE;
+				*out_need_challengeresponse_echo = TRUE;
+			}
 		}
 		return prompt;
 	}
@@ -447,6 +477,8 @@ main (int argc, char *argv[])
 	gboolean need_password = FALSE;
 	gboolean need_certpass = FALSE;
 	gboolean need_proxypass = FALSE;
+	gboolean need_challengeresponse = FALSE;
+	gboolean need_challengeresponse_echo = FALSE;
 	gs_strfreev char **hints = NULL;
 	gs_free char *prompt = NULL;
 	nm_auto_free_secret char *new_password = NULL;
@@ -460,7 +492,6 @@ main (int argc, char *argv[])
 	NoSecretsRequiredFunc no_secrets_required_func;
 	AskUserFunc ask_user_func;
 	FinishFunc finish_func;
-
 	GOptionContext *context;
 	GOptionEntry entries[] = {
 			{ "reprompt", 'r', 0, G_OPTION_ARG_NONE, &retry, "Reprompt for passwords", NULL},
@@ -472,15 +503,23 @@ main (int argc, char *argv[])
 			{ "hint", 't', 0, G_OPTION_ARG_STRING_ARRAY, &hints, "Hints from the VPN plugin", NULL},
 			{ NULL }
 		};
+	GError *error = NULL;
 
+	setlocale (LC_ALL, "");
 	bindtextdomain (GETTEXT_PACKAGE, NULL);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
 	context = g_option_context_new ("- openvpn auth dialog");
 	g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
+#if !GTK_CHECK_VERSION(4,0,0)
 	g_option_context_add_group (context, gtk_get_option_group (FALSE));
-	g_option_context_parse (context, &argc, &argv, NULL);
+#endif
+	if (!g_option_context_parse (context, &argc, &argv, &error)) {
+		fprintf (stderr, "Error parsing options: %s\n", error->message);
+		g_error_free (error);
+		return 1;
+	}
 	g_option_context_free (context);
 
 	if (vpn_uuid == NULL || vpn_name == NULL || vpn_service == NULL) {
@@ -512,12 +551,14 @@ main (int argc, char *argv[])
 	/* Determine which passwords are actually required, either from hints or
 	 * from looking at the VPN configuration.
 	 */
-	prompt = get_passwords_required (data, (const char *const*) hints, &need_password, &need_certpass, &need_proxypass);
+	prompt = get_passwords_required (data, (const char *const *)hints, &need_password,
+	                                 &need_certpass, &need_proxypass, &need_challengeresponse,
+	                                 &need_challengeresponse_echo);
 	if (!prompt)
 		prompt = g_strdup_printf (_("You need to authenticate to access the Virtual Private Network “%s”."), vpn_name);
 
 	/* Exit early if we don't need any passwords */
-	if (!need_password && !need_certpass && !need_proxypass) {
+	if (!need_password && !need_certpass && !need_proxypass && !need_challengeresponse) {
 		no_secrets_required_func ();
 		return EXIT_SUCCESS;
 	}
@@ -536,6 +577,8 @@ main (int argc, char *argv[])
 	else if (need_certpass && !existing_certpass)
 		ask_user = TRUE;
 	else if (need_proxypass && !existing_proxypass)
+		ask_user = TRUE;
+	else if (need_challengeresponse)
 		ask_user = TRUE;
 	else
 		ask_user = FALSE;
@@ -568,6 +611,8 @@ main (int argc, char *argv[])
 	             need_certpass,
 	             new_certpass ? new_certpass : existing_certpass,
 	             need_proxypass,
-	             new_proxypass ? new_proxypass : existing_proxypass);
+	             new_proxypass ? new_proxypass : existing_proxypass,
+		     need_challengeresponse,
+		     need_challengeresponse_echo);
 	return EXIT_SUCCESS;
 }
